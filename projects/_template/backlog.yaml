@@ -1,0 +1,78 @@
+# Backlog for [PROJECT NAME]
+# Authoritative priority list. If work isn't here, it's not being built.
+# Owner: Lead agent. Updated on prioritization cycle or when new stories enter.
+
+updated_at: "YYYY-MM-DD"
+
+# ─────────────────────────────────────────────────────────────
+# IN PROGRESS
+# Stories currently being worked on. Max 1-2 per discipline.
+# ─────────────────────────────────────────────────────────────
+in_progress: []
+# Example:
+# - id: "US-101"
+#   title: "Guest checkout option"
+#   assigned_to: ["design", "tech"]
+#   started: "2026-04-10"
+#   status: "design_review"
+
+# ─────────────────────────────────────────────────────────────
+# READY
+# Stories with acceptance criteria, approved, waiting for capacity.
+# Ordered by priority. Next story to pull is at the top.
+# ─────────────────────────────────────────────────────────────
+ready: []
+# Example:
+# - id: "US-102"
+#   title: "Post-purchase account creation prompt"
+#   format: "As a guest buyer, I want to optionally save my info after purchase, so I don't re-enter it next time"
+#   outcome: "increase return-visit rate by 8%"
+#   score: 3.2
+#   score_breakdown:
+#     impact: 4
+#     confidence: 4
+#     effort: 5
+#     reasoning: "depends on US-101, moderate impact"
+#   acceptance_criteria:
+#     functional:
+#       - "Prompt appears after order confirmation"
+#       - "User can dismiss or save"
+#     quality:
+#       - "No regression in checkout completion rate"
+#   depends_on: ["US-101"]
+#   priority: "medium"
+
+# ─────────────────────────────────────────────────────────────
+# DISCOVERY
+# Stories that need investigation before committing.
+# ─────────────────────────────────────────────────────────────
+discovery: []
+# Example:
+# - id: "US-104"
+#   title: "Subscription upgrade flow"
+#   hypothesis: "in-app upgrade will increase paid conversion by 20%"
+#   discovery_needed: "user interviews + competitor benchmark"
+#   owner: "lead"
+
+# ─────────────────────────────────────────────────────────────
+# ICEBOX
+# Ideas we've captured but deferred. Not prioritized until pulled out.
+# ─────────────────────────────────────────────────────────────
+icebox: []
+# Example:
+# - id: "US-087"
+#   title: "Social login (Google, Apple)"
+#   captured: "2026-03-15"
+#   reason_deferred: "low confidence on impact, high effort"
+
+# ─────────────────────────────────────────────────────────────
+# DONE
+# Stories shipped. Moved to changelog after confirmation.
+# ─────────────────────────────────────────────────────────────
+done: []
+# Example:
+# - id: "US-095"
+#   title: "Saved payment methods"
+#   shipped: "2026-04-02"
+#   version: "1.4.2"
+#   outcome_result: "return-buyer checkout speed: -32% (target was -25%)"

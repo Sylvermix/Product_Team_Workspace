@@ -1,0 +1,38 @@
+# Roadmap for [PROJECT NAME]
+# Forward-looking plan. Owner: Lead agent.
+
+updated_at: "YYYY-MM-DD"
+
+current_sprint:
+  start: "YYYY-MM-DD"
+  end: "YYYY-MM-DD"
+  goal: "one-sentence theme for this sprint"
+  in_progress: []      # story IDs
+  blocked: []          # { id, blocker, owner }
+  done: []             # story IDs
+
+next_sprint:
+  start: "YYYY-MM-DD"
+  end: "YYYY-MM-DD"
+  goal: "one-sentence theme"
+  candidate_stories: []  # story IDs from backlog.yaml:ready
+
+milestones:
+  # Major delivery points, usually tied to business events or releases
+  # - name: "Guest checkout shipped"
+  #   target_date: "2026-05-01"
+  #   stories: ["US-101", "US-102"]
+  #   status: "on_track"   # on_track | at_risk | delayed
+  #   success_metric: "checkout completion +15%"
+
+risks:
+  # Things that could derail the roadmap
+  # - description: "US-104 depends on external API — vendor hasn't confirmed timeline"
+  #   impact: "delays milestone by 2 weeks"
+  #   mitigation: "escalate to vendor by 2026-04-20, fallback: build without integration"
+  #   owner: "lead"
+
+capacity:
+  # Team velocity — used by Lead for prioritization
+  avg_stories_per_sprint: 0
+  recent_velocity: []    # [{ sprint: "2026-W14", planned: 4, delivered: 3 }]

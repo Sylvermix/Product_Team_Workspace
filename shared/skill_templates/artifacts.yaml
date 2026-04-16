@@ -1,0 +1,227 @@
+# Agent Artifact Schemas
+# Templates for every artifact exchanged between agents.
+# Use these as the contract — agents produce and consume these shapes.
+
+# ═════════════════════════════════════════════════════════════
+# LEAD OUTPUTS
+# ═════════════════════════════════════════════════════════════
+
+user_story_schema:
+  id: "US-###"                          # required, unique
+  title: ""                              # required, short
+  format: ""                             # required, "As a [user], I want [x], so that [y]"
+  outcome: ""                            # required, measurable
+  hypothesis: ""                         # optional, if discovery-driven
+  user_segment: ""                       # required
+  priority: "low | medium | high | critical"
+  score:
+    impact: 0                            # 1-5
+    confidence: 0                        # 1-5
+    effort: 0                            # 1-5
+    total: 0.0                           # impact × confidence ÷ effort
+    reasoning: ""
+  acceptance_criteria:
+    functional: []                       # testable items
+    quality: []                          # perf, a11y, error handling
+  out_of_scope: []
+  definition_of_done: []
+  depends_on: []                         # other story IDs
+  context: ""                            # additional info for Design/Tech
+  audience_notes: ""                     # audience specifics for this story
+
+design_brief_schema:
+  user_story_ref: "US-###"
+  feature_context: ""
+  audience: ""
+  emotional_tone: ""                     # e.g. "welcoming, unhurried"
+  aesthetic_guidance: ""                 # tone hint if different from project default
+  constraints: []
+  inspiration_refs: []                   # URLs or references (optional)
+
+arbitration_decision_schema:
+  conflict_description: ""
+  design_position: ""
+  tech_position: ""
+  tradeoff: ""
+  decision: ""
+  reasoning: ""
+  revisit_when: ""                       # condition to reopen
+
+# ═════════════════════════════════════════════════════════════
+# DESIGN OUTPUTS
+# ═════════════════════════════════════════════════════════════
+
+aesthetic_direction_schema:
+  feature: ""
+  tone: ""                               # specific, not "clean and modern"
+  typography:
+    display: ""                          # distinctive font
+    body: ""                             # distinctive font
+  color_strategy:
+    dominant: ""                         # CSS variable
+    accent: ""
+    neutral: ""
+  spatial_approach: ""
+  motion_intent: ""
+  differentiator: ""                     # one memorable element
+  rationale: ""
+
+mockup_spec_schema:
+  screen: ""
+  user_story_ref: "US-###"
+  aesthetic_direction_ref: ""
+  layout:
+    description: ""
+    sections: []
+  components_reused: []                  # existing design system components
+  components_new: []                     # new components to add
+  states:
+    default: { description: "" }
+    hover: { description: "" }
+    active: { description: "" }
+    disabled: { description: "" }
+    error: { description: "" }
+    loading: { description: "" }
+    empty: { description: "" }
+  responsive:
+    mobile: ""                           # 375px
+    tablet: ""                           # 768px
+    desktop: ""                          # 1440px
+  spacing_tokens: {}                     # references to tokens.yaml
+  copy_slots: []                         # for Content agent
+  rationale: ""
+
+motion_spec_schema:
+  screen: ""
+  animations:
+    - trigger: ""                        # page_load, hover, click, scroll
+      elements: []
+      type: ""                           # fade, slide, scale, etc.
+      timing: ""
+      easing: ""
+      reduced_motion_alternative: ""
+      implementation: ""                 # CSS or JS
+
+component_spec_schema:
+  component: ""
+  version: ""
+  description: ""
+  variants: []
+  sizes: []
+  states: []
+  tokens: {}                             # sizes, colors, spacing
+  accessibility:
+    role: ""
+    keyboard: ""
+    aria_required: []
+  motion: {}
+  usage:
+    do: []
+    dont: []
+  breaking_change: false
+  migration_notes: ""
+
+implementation_review_schema:
+  screen: ""
+  user_story_ref: "US-###"
+  status: "approved | changes_requested"
+  discrepancies:
+    - element: ""
+      type: "spacing | color | typography | behavior | motion | responsive"
+      severity: "blocker | minor"
+      expected: ""
+      actual: ""
+  aesthetic_audit:
+    typography_distinctive: true
+    color_intentional: true
+    layout_unexpected: true
+    motion_meaningful: true
+    no_generic_patterns: true
+    differentiator_visible: true
+  verdict: ""
+
+# ═════════════════════════════════════════════════════════════
+# TECH OUTPUTS
+# ═════════════════════════════════════════════════════════════
+
+feasibility_assessment_schema:
+  user_story_ref: "US-###"
+  feasible: true
+  effort:
+    best_case: ""
+    likely: ""
+    worst_case: ""
+    confidence: "low | medium | high"
+  codebase_impact: []                    # modules affected
+  dependencies:
+    internal: []
+    external: []
+  risks:
+    - type: "performance | security | accessibility | compatibility"
+      description: ""
+      severity: "low | medium | high"
+  alternatives: []                       # if not feasible as-is
+  recommendation: "proceed | revise | defer"
+
+implementation_schema:
+  user_story_ref: "US-###"
+  branch: ""
+  commits: 0
+  files_changed: 0
+  lines_changed: "+X / -Y"
+  tests:
+    unit: "N added, all passing"
+    integration: "N added"
+    coverage: "X% on new code"
+  components_reused: []
+  components_new: []
+  documentation_updated: []
+  adr_refs: []                           # any new ADR files
+  ready_for_review: true
+
+code_review_schema:
+  pr_ref: ""
+  verdict: "approved | approved_with_comments | changes_requested"
+  comments:
+    - file: ""
+      line: 0
+      severity: "blocker | minor"
+      comment: ""
+  checks_passed: []
+  checks_failed: []
+
+deployment_schema:
+  story_ref: "US-###"
+  version: ""
+  pipeline:
+    build: "pass | fail"
+    staging: "pass | fail"
+    smoke: "pass | fail"
+    production: "in_progress | complete | rolled_back"
+  rollout:
+    stage_percent: 0
+    error_rate: ""
+    latency_p95: ""
+    business_metric: ""
+  rollback_trigger: ""
+  changelog_entry: ""
+
+# ═════════════════════════════════════════════════════════════
+# ADR (Architecture Decision Record)
+# ═════════════════════════════════════════════════════════════
+
+adr_schema:
+  id: "ADR-###"
+  title: ""
+  date: "YYYY-MM-DD"
+  status: "proposed | accepted | deprecated | superseded"
+  context: ""                            # what's the situation
+  decision: ""                           # what was decided
+  alternatives_considered:
+    - option: ""
+      rejected_because: ""
+  consequences:
+    positive: []
+    negative: []
+    neutral: []
+  supersedes: ""                         # ADR-### if replacing another

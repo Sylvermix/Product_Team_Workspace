@@ -1,0 +1,48 @@
+# Components Registry for [PROJECT NAME]
+# Design system component library. Owner: Design agent.
+# Tech implements from this spec and keeps code in sync.
+
+version: "0.1.0"
+updated_at: "YYYY-MM-DD"
+
+# Each component: variants, states, accessibility, motion, usage rules
+components: []
+
+# Example component definition:
+#
+# - name: "Button"
+#   version: "1.2.0"
+#   description: "Primary interaction element"
+#   variants:
+#     - primary
+#     - secondary
+#     - ghost
+#     - danger
+#   sizes:
+#     - sm
+#     - md
+#     - lg
+#   states:
+#     - default
+#     - hover
+#     - active
+#     - disabled
+#     - loading
+#     - focus
+#   accessibility:
+#     role: "button"
+#     keyboard: "Enter, Space"
+#     aria_required: ["aria-label if icon-only"]
+#   motion:
+#     hover: "200ms ease-out — scale + shadow lift"
+#     reduced_motion: "no transform, only color change"
+#   usage:
+#     do:
+#       - "use primary for main action per screen"
+#       - "use ghost for cancel/secondary flows"
+#     dont:
+#       - "never stack two primaries in same view"
+#       - "never use button for navigation (use link)"
+#   implementation:
+#     file: "src/design-system/Button/index.tsx"
+#     storybook: "design-system/Button"

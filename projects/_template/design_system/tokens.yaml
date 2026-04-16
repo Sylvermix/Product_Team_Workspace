@@ -1,0 +1,130 @@
+# Design Tokens for [PROJECT NAME]
+# Single source of truth for all design values. Consumed directly by Tech.
+# Owner: Design agent. Versioned.
+
+version: "0.1.0"
+updated_at: "YYYY-MM-DD"
+
+# ─────────────────────────────────────────────────────────────
+# COLOR
+# ─────────────────────────────────────────────────────────────
+color:
+  # Brand / semantic
+  brand:
+    primary: ""      # hex
+    secondary: ""
+    accent: ""
+  
+  # Neutral ramp
+  neutral:
+    "50":  ""
+    "100": ""
+    "200": ""
+    "400": ""
+    "600": ""
+    "800": ""
+    "900": ""
+  
+  # Semantic
+  semantic:
+    success: ""
+    warning: ""
+    danger: ""
+    info: ""
+  
+  # Surface
+  surface:
+    background: ""
+    foreground: ""
+    card: ""
+    overlay: ""
+
+# ─────────────────────────────────────────────────────────────
+# TYPOGRAPHY
+# ─────────────────────────────────────────────────────────────
+typography:
+  families:
+    display: ""      # e.g. "Instrument Serif"
+    body: ""         # e.g. "DM Sans"
+    mono: ""         # e.g. "JetBrains Mono"
+  
+  sizes:
+    xs: "12px"
+    sm: "14px"
+    base: "16px"
+    lg: "18px"
+    xl: "22px"
+    "2xl": "28px"
+    "3xl": "36px"
+    "4xl": "48px"
+  
+  weights:
+    regular: 400
+    medium: 500
+    bold: 700
+  
+  line_heights:
+    tight: 1.2
+    normal: 1.5
+    relaxed: 1.7
+  
+  letter_spacing:
+    tight: "-0.02em"
+    normal: "0"
+    wide: "0.05em"
+
+# ─────────────────────────────────────────────────────────────
+# SPACING (4px base)
+# ─────────────────────────────────────────────────────────────
+spacing:
+  "0":  "0"
+  "1":  "4px"
+  "2":  "8px"
+  "3":  "12px"
+  "4":  "16px"
+  "6":  "24px"
+  "8":  "32px"
+  "12": "48px"
+  "16": "64px"
+  "24": "96px"
+
+# ─────────────────────────────────────────────────────────────
+# LAYOUT
+# ─────────────────────────────────────────────────────────────
+layout:
+  breakpoints:
+    mobile:  "375px"
+    tablet:  "768px"
+    desktop: "1440px"
+  
+  max_widths:
+    content: "1200px"
+    reading: "720px"
+    form:    "560px"
+  
+  radius:
+    none: "0"
+    sm:   "4px"
+    md:   "8px"
+    lg:   "12px"
+    xl:   "16px"
+    full: "9999px"
+
+# ─────────────────────────────────────────────────────────────
+# EFFECTS
+# ─────────────────────────────────────────────────────────────
+effects:
+  shadow:
+    sm: ""
+    md: ""
+    lg: ""
+  
+  motion:
+    duration:
+      fast:   "150ms"
+      normal: "250ms"
+      slow:   "400ms"
+    easing:
+      standard: "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      entrance: "cubic-bezier(0, 0, 0.2, 1)"
+      exit:     "cubic-bezier(0.4, 0, 1, 1)"
