@@ -1,0 +1,271 @@
+# Backlog for Atelier
+# Authoritative priority list. If work isn't here, it's not being built.
+# Owner: Lead agent. Updated on prioritization cycle.
+
+updated_at: "2026-04-16"
+
+# ─────────────────────────────────────────────────────────────
+# IN PROGRESS
+# ─────────────────────────────────────────────────────────────
+in_progress: []
+
+# ─────────────────────────────────────────────────────────────
+# READY — MVP Epic 1: Wardrobe core
+# ─────────────────────────────────────────────────────────────
+ready:
+  - id: "US-001"
+    epic: "wardrobe_core"
+    title: "Add garment to wardrobe via camera"
+    format: "As a new user, I want to take a photo of a garment I own so I can start building my digital wardrobe without typing"
+    outcome: "90% of users add at least 3 garments in first session"
+    score:
+      impact: 5
+      confidence: 5
+      effort: 3
+      total: 8.3
+      reasoning: "core onboarding gesture, cannot have product without this"
+    acceptance_criteria:
+      functional:
+        - "Camera button on wardrobe empty state and persistent FAB"
+        - "Camera opens in < 800ms"
+        - "Photo preview before save, with retake option"
+        - "On save, photo uploads and AI auto-tags category, color, season"
+        - "Item appears in wardrobe grid within 3s of save"
+      quality:
+        - "Works offline (queue upload for when connection returns)"
+        - "Respects prefers-reduced-motion"
+        - "Accessible: camera button has proper ARIA + haptic feedback"
+    out_of_scope:
+      - "Background removal (separate story)"
+      - "Manual editing of AI tags (separate story US-004)"
+    definition_of_done:
+      - "All acceptance criteria pass"
+      - "Tested on iOS 16+ and Android 10+"
+      - "AI tagging accuracy validated at ≥75% on test set"
+    depends_on: []
+    priority: "critical"
+
+  - id: "US-002"
+    epic: "wardrobe_core"
+    title: "Add garment to wardrobe via photo upload"
+    format: "As a user, I want to upload existing photos from my camera roll so I can add clothes I've already photographed"
+    outcome: "50%+ of wardrobe adds via upload (not camera) in first session"
+    score:
+      impact: 4
+      confidence: 5
+      effort: 2
+      total: 10.0
+      reasoning: "critical for onboarding cold start — users have photos already"
+    acceptance_criteria:
+      functional:
+        - "Upload option alongside camera option"
+        - "Multi-select up to 10 photos at once"
+        - "Batch AI processing with progress indicator"
+        - "Each photo becomes a separate wardrobe item"
+      quality:
+        - "Handles large photos (>10MB) via client-side resize before upload"
+        - "Graceful error per-photo if one fails"
+    depends_on: ["US-001"]
+    priority: "critical"
+
+  - id: "US-003"
+    epic: "wardrobe_core"
+    title: "View wardrobe as editable grid"
+    format: "As a user, I want to see all my garments in a visual grid so I can quickly browse what I own"
+    outcome: "median session length includes ≥1 wardrobe grid view"
+    score:
+      impact: 5
+      confidence: 5
+      effort: 3
+      total: 8.3
+      reasoning: "primary screen, must exist and perform well"
+    acceptance_criteria:
+      functional:
+        - "Grid layout with responsive columns (2 on phone, 3 on tablet)"
+        - "Tap item → item detail view"
+        - "Long-press → multi-select mode"
+        - "Filter by category, color, season"
+        - "Sort by date added, color, category"
+      quality:
+        - "60fps scroll with 500+ items (virtualized list)"
+        - "LQIP placeholder → full image < 300ms on 4G"
+        - "Works offline (shows cached items)"
+    depends_on: ["US-001"]
+    priority: "critical"
+
+  - id: "US-004"
+    epic: "wardrobe_core"
+    title: "Edit garment details"
+    format: "As a user, I want to correct AI-generated tags on my garments so my wardrobe stays accurate"
+    outcome: "correction rate < 30% (indicates AI accuracy) within 3 months"
+    score:
+      impact: 4
+      confidence: 5
+      effort: 2
+      total: 10.0
+      reasoning: "trust-builder, essential when AI is wrong"
+    acceptance_criteria:
+      functional:
+        - "From item detail: edit category, color, season, tags"
+        - "Add custom notes (e.g. 'wedding outfit')"
+        - "Delete garment (with confirm)"
+      quality:
+        - "Changes sync across devices within 5s"
+    depends_on: ["US-003"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
+  # Epic 2: Scan — AI product identification
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-010"
+    epic: "scan"
+    title: "Scan any photo to identify garments and find matching products"
+    format: "As a user, I want to scan any photo (mine or from inspiration) so the app identifies the garments and shows me where to buy similar items"
+    outcome: "scan feature used by 60%+ of MAU weekly; product tap-through rate ≥ 25%"
+    score:
+      impact: 5
+      confidence: 3
+      effort: 5
+      total: 3.0
+      reasoning: "highest impact AND highest risk — core differentiator. Confidence limited until feasibility spike completes"
+    acceptance_criteria:
+      functional:
+        - "Scan button accessible from home, wardrobe, and any photo view"
+        - "AI identifies distinct garments in the photo (top, bottom, shoes, accessories)"
+        - "Visual overlay shows detected garments with subtle markers during analysis"
+        - "For each detected garment, show 3-5 matching products with image, price, retailer, review score"
+        - "Sort matches by price (ascending/descending)"
+        - "Filter matches by retailer, price range"
+        - "Tap a match → deep link to retailer (app or web)"
+        - "Affiliate disclosure visible in results view"
+      quality:
+        - "Full scan (upload → first results visible) in < 6s on 4G"
+        - "AI accuracy: top-3 results include a 'useful match' in ≥75% of scans (validated on test set)"
+        - "Graceful 'no matches found' state with suggestion to try a clearer photo"
+    definition_of_done:
+      - "Feasibility spike passed (pre-requisite to committing)"
+      - "Legal review of retailer API usage done"
+      - "Affiliate networks integrated and disclosure UX approved"
+    depends_on: []
+    priority: "critical"
+
+  - id: "US-011"
+    epic: "scan"
+    title: "Save scanned products to wishlist"
+    format: "As a user, I want to save products from scan results so I can come back to them later"
+    outcome: "wishlist adds per scan ≥ 0.5 (users find value worth saving)"
+    score:
+      impact: 3
+      confidence: 4
+      effort: 2
+      total: 6.0
+      reasoning: "retention driver, but secondary to scan itself working"
+    depends_on: ["US-010"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
+  # Epic 3: Look creation
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-020"
+    epic: "looks"
+    title: "Create a look from wardrobe items"
+    format: "As a user, I want to combine my wardrobe items into a named outfit so I can plan what to wear"
+    outcome: "avg looks per WAS ≥ 3/month"
+    score:
+      impact: 5
+      confidence: 4
+      effort: 3
+      total: 6.7
+      reasoning: "core behavior our north star measures"
+    acceptance_criteria:
+      functional:
+        - "From wardrobe: select multiple items → 'Create look' action"
+        - "Look builder: drag to arrange items visually"
+        - "Name the look (required) + optional notes (occasion, season)"
+        - "Save → appears in Looks tab"
+        - "Edit existing look: add/remove items, rename, delete"
+      quality:
+        - "Composition preview renders in < 500ms"
+        - "Looks load instantly (cached)"
+    depends_on: ["US-003"]
+    priority: "critical"
+
+  - id: "US-021"
+    epic: "looks"
+    title: "Browse all saved looks"
+    format: "As a user, I want to see all my created looks in one place so I can pick an outfit quickly"
+    outcome: "look views per session ≥ 2 for WAS"
+    score:
+      impact: 4
+      confidence: 5
+      effort: 2
+      total: 10.0
+      reasoning: "required companion to US-020"
+    depends_on: ["US-020"]
+    priority: "critical"
+
+# ─────────────────────────────────────────────────────────────
+# DISCOVERY — needs validation before committing effort
+# ─────────────────────────────────────────────────────────────
+discovery:
+  - id: "SPIKE-001"
+    title: "AI product identification feasibility spike"
+    hypothesis: "With current models (CLIP + SAM 2 + SerpAPI/Amazon), we can achieve ≥75% top-3 useful match rate on a diverse test set of 100 fashion photos"
+    owner: "tech"
+    blocks: ["US-010"]
+    deliverable: "test harness + results report + cost-per-scan estimate"
+    target_completion: "week 2"
+
+  - id: "SPIKE-002"
+    title: "Retailer API + affiliate legal review"
+    hypothesis: "We can legally access product data + imagery from Google Shopping + Amazon + 2 affiliate networks for commercial use"
+    owner: "lead"
+    blocks: ["US-010"]
+    deliverable: "approved API list + terms summary + disclosure requirements"
+    target_completion: "week 3"
+
+  - id: "DISC-001"
+    title: "Onboarding effort validation"
+    hypothesis: "Users will spend 10+ minutes building initial wardrobe IF the scan feature works without it"
+    owner: "lead"
+    deliverable: "5 prototype user tests report"
+    target_completion: "week 4"
+
+# ─────────────────────────────────────────────────────────────
+# ICEBOX — deferred beyond MVP
+# ─────────────────────────────────────────────────────────────
+icebox:
+  - id: "US-100"
+    title: "Post video/photo wearing a look"
+    captured: "2026-04-16"
+    reason_deferred: "v2 — social features deferred until wardrobe + scan proven"
+
+  - id: "US-101"
+    title: "Shoppable video with tagged products"
+    captured: "2026-04-16"
+    reason_deferred: "depends on US-100 and mature product matching"
+
+  - id: "US-102"
+    title: "Body measurements profile"
+    captured: "2026-04-16"
+    reason_deferred: "needs dedicated privacy design; consider fit-preferences alternative"
+
+  - id: "US-103"
+    title: "Follow other stylists, social feed"
+    captured: "2026-04-16"
+    reason_deferred: "social is a separate product dimension; validate core use case first"
+
+  - id: "US-104"
+    title: "Outfit recommendations from AI (from wardrobe)"
+    captured: "2026-04-16"
+    reason_deferred: "exciting but requires mature wardrobe data; v2 or later"
+
+  - id: "US-105"
+    title: "Packing list / travel planner"
+    captured: "2026-04-16"
+    reason_deferred: "secondary use case"
+
+# ─────────────────────────────────────────────────────────────
+# DONE — moved to changelog after confirmation
+# ─────────────────────────────────────────────────────────────
+done: []

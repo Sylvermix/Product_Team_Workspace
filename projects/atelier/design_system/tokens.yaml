@@ -1,0 +1,152 @@
+# Design Tokens for Atelier
+# Derived from context.md aesthetic direction: editorial maximalism × studio minimalism
+# Owner: Design agent.
+
+version: "0.1.0"
+updated_at: "2026-04-16"
+
+# ─────────────────────────────────────────────────────────────
+# COLOR
+# High contrast, editorial. Neutrals dominate; one seasonal accent.
+# ─────────────────────────────────────────────────────────────
+color:
+  brand:
+    primary: "#1a1a1c"       # near-black ink
+    secondary: "#f6f3ed"     # warm off-white
+    accent: "#c85a3c"        # terracotta (seasonal — rotates)
+  
+  neutral:
+    "50":  "#fbfaf7"
+    "100": "#f6f3ed"
+    "200": "#e8e3d7"
+    "400": "#a09b90"
+    "600": "#5a5651"
+    "800": "#2e2c29"
+    "900": "#1a1a1c"
+  
+  semantic:
+    success: "#3d6b4a"       # deep green, editorial
+    warning: "#c48a1e"       # ochre
+    danger:  "#9b3a3a"       # deep brick (not bright red)
+    info:    "#3d5a7a"       # slate blue
+  
+  surface:
+    background: "#f6f3ed"    # warm off-white — primary canvas
+    foreground: "#1a1a1c"
+    card:       "#fbfaf7"    # slightly lighter than bg for subtle depth
+    overlay:    "rgba(26, 26, 28, 0.72)"
+
+# ─────────────────────────────────────────────────────────────
+# TYPOGRAPHY
+# Editorial serif for display + humanist sans for body.
+# NO Inter/Roboto/SF Pro.
+# ─────────────────────────────────────────────────────────────
+typography:
+  families:
+    display: "PP Editorial New"       # characterful serif
+    body:    "PP Neue Montreal"       # humanist sans
+    mono:    "JetBrains Mono"
+  
+  sizes:
+    xs:   "12px"
+    sm:   "14px"
+    base: "16px"
+    lg:   "18px"
+    xl:   "22px"
+    "2xl": "28px"
+    "3xl": "36px"
+    "4xl": "52px"                     # generous display size
+    "5xl": "72px"                     # editorial hero
+  
+  weights:
+    regular: 400
+    medium:  500
+    # No bold/black — editorial typography favors weight via size, not heaviness
+  
+  line_heights:
+    tight:   1.1                       # display
+    snug:    1.3
+    normal:  1.5
+    relaxed: 1.7                       # body
+  
+  letter_spacing:
+    tight:  "-0.02em"
+    normal: "0"
+    wide:   "0.04em"                   # for small caps, tags
+    editorial: "0.12em"                # signature for small labels
+
+# ─────────────────────────────────────────────────────────────
+# SPACING (4px base, generous rhythm)
+# ─────────────────────────────────────────────────────────────
+spacing:
+  "0":  "0"
+  "1":  "4px"
+  "2":  "8px"
+  "3":  "12px"
+  "4":  "16px"
+  "6":  "24px"
+  "8":  "32px"
+  "12": "48px"
+  "16": "64px"
+  "20": "80px"
+  "24": "96px"
+  "32": "128px"                        # section breaks
+
+# ─────────────────────────────────────────────────────────────
+# LAYOUT
+# ─────────────────────────────────────────────────────────────
+layout:
+  breakpoints:
+    mobile:  "375px"
+    tablet:  "768px"
+    desktop: "1280px"                  # unlikely priority but define
+  
+  max_widths:
+    content: "1200px"
+    reading: "640px"
+    form:    "480px"
+  
+  radius:
+    none: "0"
+    sm:   "2px"                        # sparing — editorial favors sharp corners
+    md:   "4px"
+    lg:   "8px"
+    full: "9999px"                     # pills (rare)
+
+# ─────────────────────────────────────────────────────────────
+# EFFECTS
+# No gradients, no drop shadows as decoration.
+# Motion is luxurious — slow and purposeful.
+# ─────────────────────────────────────────────────────────────
+effects:
+  shadow:
+    # Use sparingly — editorial design minimizes shadows
+    subtle: "0 1px 2px rgba(26, 26, 28, 0.04)"
+    lift:   "0 4px 16px rgba(26, 26, 28, 0.08)"   # for elevated cards only
+  
+  motion:
+    duration:
+      fast:    "200ms"
+      normal:  "400ms"                 # default — unhurried
+      slow:    "600ms"
+      cinematic: "900ms"               # scan reveal, hero transitions
+    easing:
+      standard: "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      entrance: "cubic-bezier(0.16, 1, 0.3, 1)"      # slow ease-out, feels expensive
+      exit:     "cubic-bezier(0.7, 0, 0.84, 0)"
+
+# ─────────────────────────────────────────────────────────────
+# APP-SPECIFIC TOKENS
+# ─────────────────────────────────────────────────────────────
+atelier:
+  wardrobe_grid:
+    columns_mobile: 2
+    columns_tablet: 3
+    gap: "8px"                         # tight, product-imagery-first
+    item_aspect_ratio: "3 / 4"         # portrait
+  
+  scan_overlay:
+    dim_opacity: 0.72
+    marker_color: "#c85a3c"            # accent
+    marker_stroke: "1px"
+    reveal_duration: "900ms"           # cinematic

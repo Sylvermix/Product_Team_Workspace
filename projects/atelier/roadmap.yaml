@@ -1,0 +1,88 @@
+# Roadmap for Atelier
+# Owner: Lead agent.
+
+updated_at: "2026-04-16"
+
+current_sprint:
+  start: "2026-04-16"
+  end: "2026-04-30"
+  goal: "De-risk the core hypothesis — can AI reliably identify garments and find matching products?"
+  in_progress: []
+  blocked: []
+  done: []
+  planned:
+    - "SPIKE-001"   # AI product identification feasibility
+    - "SPIKE-002"   # Retailer API + affiliate legal review
+    - "DISC-001"    # Onboarding effort validation (start)
+
+next_sprint:
+  start: "2026-05-01"
+  end: "2026-05-14"
+  goal: "If spikes pass: begin wardrobe core. If spikes fail: reassess scope."
+  candidate_stories:
+    - "US-001"      # Add garment via camera
+    - "US-002"      # Add garment via upload
+    - "US-003"      # Wardrobe grid view
+
+milestones:
+  - name: "Feasibility gate"
+    target_date: "2026-05-01"
+    stories: ["SPIKE-001", "SPIKE-002"]
+    status: "on_track"
+    success_metric: "AI top-3 match rate ≥ 75% on test set + legal green-light on APIs"
+    blocker_for: "committing to full MVP scope"
+
+  - name: "Wardrobe core shippable"
+    target_date: "2026-05-28"
+    stories: ["US-001", "US-002", "US-003", "US-004"]
+    status: "on_track"
+    success_metric: "internal team can build personal wardrobes of 20+ items without friction"
+
+  - name: "Looks feature shippable"
+    target_date: "2026-06-11"
+    stories: ["US-020", "US-021"]
+    status: "on_track"
+    success_metric: "users can create and browse looks"
+
+  - name: "Scan feature shippable"
+    target_date: "2026-06-25"
+    stories: ["US-010", "US-011"]
+    status: "on_track"
+    success_metric: "scan works end-to-end; beta users report 'useful' on ≥60% of scans"
+
+  - name: "MVP Beta launch"
+    target_date: "2026-07-09"
+    stories: ["wardrobe_core", "looks", "scan"]
+    status: "on_track"
+    success_metric: "50 beta users using the app weekly; NPS baseline established"
+
+  - name: "Public launch"
+    target_date: "2026-08-20"
+    status: "on_track"
+    success_metric: "App Store + Play Store live; press kit delivered; 500 launch-week downloads"
+
+risks:
+  - description: "SPIKE-001 fails: AI product match rate below threshold"
+    impact: "fundamental pivot — either different value prop (manual tagging, curator-driven) or significant ML investment"
+    mitigation: "define pass/fail criteria clearly before spike; if fails, do not proceed with US-010; reassess core hypothesis in week 3"
+    owner: "tech"
+
+  - description: "SPIKE-002 fails: APIs too restrictive / expensive"
+    impact: "product catalog coverage limited; may need manual curation for MVP"
+    mitigation: "have fallback list of 2-3 alternative sources; consider negotiating direct partnerships with 1-2 major retailers"
+    owner: "lead"
+
+  - description: "iOS App Store policy friction around shoppable content"
+    impact: "submission rejected or enhanced review delays launch"
+    mitigation: "review policies during design phase; build disclosure UX early; submit beta builds to TestFlight for early signal"
+    owner: "lead"
+
+  - description: "Inference cost per scan exceeds target ($0.02)"
+    impact: "margin risk at scale; may need to cap free-tier scans or defer launch"
+    mitigation: "measure cost during SPIKE-001; plan tiered architecture (cheap first-pass, expensive only on ambiguous cases)"
+    owner: "tech"
+
+capacity:
+  avg_stories_per_sprint: 0  # no data yet
+  recent_velocity: []
+  notes: "First sprint is spikes, not stories. Recalibrate capacity once MVP development starts."
