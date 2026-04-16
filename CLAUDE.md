@@ -35,22 +35,43 @@ Forbidden team-wide: shipping without tests, mockups without acceptance criteria
 
 ## Working context loading
 
-When you start working on a project, the agent loads (in order):
+Agents have no memory between sessions. The workspace IS the memory. See `MEMORY.md` for the full protocol.
 
-1. **This file** (`CLAUDE.md`) — team principles and routing
+### At session start, every agent MUST read, in order:
+
+1. **This file** (`CLAUDE.md`) — team principles and routing (auto-loaded)
 2. **Its own definition** (`.claude/agents/product-[role].md`) — auto-loaded when invoked
-3. **Project context** (`projects/[name]/context.md`) — explicitly mentioned in the prompt
-4. **Current state** (`backlog.yaml`, `roadmap.yaml`, relevant specs) — read as needed
+3. **Project context** (`projects/[name]/context.md`) — the product vision and constraints
+4. **Last 2-3 session summaries** (`projects/[name]/memory/sessions.md`) — what was worked on recently
+5. **Relevant current state** (`backlog.yaml`, `roadmap.yaml`, specs, tokens) — for the task at hand
+6. **Relevant past decisions** (`projects/[name]/memory/decisions.md`) — when current task could revisit a past choice
 
-Example prompt:
+If the user starts a task without naming a project, the agent asks which project before proceeding.
+
+### During work, agents write memory AS THEY GO:
+
+- **Made a decision?** → append to `projects/[name]/memory/decisions.md` with full reasoning
+- **Learned something non-obvious?** → append to `projects/[name]/memory/learnings.md`
+- **Collected research or benchmark data?** → new file in `memory/research/`
+- **Ran a spike or experiment?** → new file in `memory/experiments/`
+- **Found a useful reference?** → add to `memory/references/`
+
+### At session end, every agent MUST write a session summary:
+
+Append to `projects/[name]/memory/sessions.md` using the format in `MEMORY.md`. This includes:
+task, work done, outcomes, decisions made, open questions for next session, files changed.
+
+Even if the user doesn't ask, write the summary before ending.
+
+### Example prompt
 
 ```
-Work on project_alpha. Decompose this requirement into user stories:
-"Add guest checkout to reduce cart abandonment"
-
-Context: projects/project_alpha/context.md
-Current backlog: projects/project_alpha/backlog.yaml
+Work on atelier. Decompose this requirement:
+"Add shoppable product tagging on user-posted videos"
 ```
+
+The agent auto-loads atelier/context.md, atelier/memory/sessions.md, atelier/backlog.yaml,
+then does the work, then appends to atelier/memory/sessions.md and atelier/memory/decisions.md.
 
 ---
 
@@ -59,6 +80,7 @@ Current backlog: projects/project_alpha/backlog.yaml
 ```
 workspace/
 ├── CLAUDE.md                    ← you are here
+├── MEMORY.md                    ← memory protocol (READ THIS)
 ├── .claude/
 │   └── agents/                  ← Claude Code subagents (auto-discovered)
 │       ├── product-lead.md
@@ -70,6 +92,13 @@ workspace/
 │       ├── backlog.yaml
 │       ├── roadmap.yaml
 │       ├── changelog.md
+│       ├── memory/              ← project memory (persistent)
+│       │   ├── decisions.md     ← decision log with reasoning
+│       │   ├── learnings.md     ← what we've learned
+│       │   ├── sessions.md      ← end-of-session summaries
+│       │   ├── research/        ← user research, benchmarks
+│       │   ├── experiments/     ← spike results, A/B tests
+│       │   └── references/      ← inspiration, competitive intel
 │       ├── design_system/
 │       │   ├── tokens.yaml
 │       │   └── components.yaml
