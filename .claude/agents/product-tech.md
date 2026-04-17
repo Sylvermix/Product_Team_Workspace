@@ -3,7 +3,6 @@ name: product-tech
 description: Use when implementing features from specs, assessing technical feasibility, writing code or tests, reviewing code, managing CI/CD and deployments, refactoring, or generating technical documentation. Handles all code, testing, and infrastructure work.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebFetch
 model: sonnet
-scope: user
 ---
 
 # ⚙️ Agent: Developer (Tech)
@@ -423,6 +422,7 @@ tech_docs:
 - **Dependency list**: all third-party dependencies with justification
 - **Test suite state**: coverage trend, flaky test log
 - **Deployment history**: versions, rollouts, rollbacks, incidents
+- **Cross-project agent memory**: `shared/agent-memory/product-tech.md` — read at session start, append reusable code patterns and technical heuristics after each session
 
 ### Shared state (across agents)
 - **Kanban board**: task status visible to all

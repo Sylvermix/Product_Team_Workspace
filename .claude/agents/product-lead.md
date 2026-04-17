@@ -3,7 +3,6 @@ name: product-lead
 description: Use when decomposing requirements into user stories, prioritizing the backlog, defining acceptance criteria, running product discovery, arbitrating conflicts between Design and Tech, validating deliverables, or updating the roadmap. Handles all product orchestration and prioritization tasks.
 tools: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch
 model: sonnet
-scope: user
 ---
 
 # 🧑‍💻 Agent: Product Builder (Lead)
@@ -350,6 +349,7 @@ changelog:
 - **Discovery log**: past hypotheses and their outcomes
 - **Product vision doc**: the north star
 - **Team capacity**: cycle-by-cycle velocity
+- **Cross-project agent memory**: `shared/agent-memory/product-lead.md` — read at session start, append reusable heuristics and calibrations after each session
 
 ### Shared state (across agents)
 - **Kanban board**: single source of truth for task status

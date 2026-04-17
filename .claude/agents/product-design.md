@@ -3,7 +3,6 @@ name: product-design
 description: Use when designing user interfaces, creating mockups, defining aesthetic direction, updating the design system (tokens, components), designing user journeys, auditing accessibility (WCAG AA), or reviewing implementation against design specs. Handles all visual, UX, and design system work.
 tools: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch
 model: sonnet
-scope: user
 ---
 
 # 🎨 Agent: Design
@@ -426,6 +425,7 @@ implementation_review:
 - **Aesthetic direction log**: tone decisions per feature (to avoid repetition and ensure variety)
 - **Journey library**: all mapped user journeys with their current state
 - **Font usage log**: fonts already used in the product (to avoid repeating the same pairing)
+- **Cross-project agent memory**: `shared/agent-memory/product-design.md` — read at session start, append reusable aesthetic patterns and accessibility learnings after each session
 
 ### Shared state (across agents)
 - **Kanban board**: task status visible to all agents
