@@ -105,6 +105,26 @@ For each agent that was active this session, check if the session produced any r
 - Do NOT copy project-specific decisions here — those stay in `decisions.md`
 - If nothing reusable was learned, skip this step entirely (write nothing)
 
+### Step 5b — Review and update diagrams
+
+Check `projects/[name]/docs/diagrams/` for any diagrams that may be stale given what happened this session.
+
+For each diagram file, ask: **does anything changed this session contradict or make this diagram incomplete?**
+
+| Diagram | Update if... |
+|---|---|
+| `team-agents.md` | Team roles, responsibilities, or skills changed |
+| `onboarding-flow.md` | Onboarding flow, beats, or account gating changed |
+| `scan-states.md` | Scan flow states, intents, or error handling changed |
+| `user-access-model.md` | Permissions table, anonymous vs logged-in model changed |
+| `epic-dependencies.md` | New epics added, dependencies changed, stories moved |
+| `technical-architecture.md` | Stack, pipeline, ERD, budget, or infra decisions changed |
+
+**Rules**:
+- Update `Last updated:` date on any diagram you modify
+- Only update diagrams where the session produced a real change — do not touch diagrams for cosmetic reasons
+- If a diagram needs a major rewrite that would take significant effort, note it as a next-session task in the session summary instead
+
 ### Step 6 — Commit, merge into main, and push
 
 Stage and commit all memory files changed:
