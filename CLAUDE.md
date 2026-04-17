@@ -58,10 +58,17 @@ If the user starts a task without naming a project, the agent asks which project
 
 ### At session end, every agent MUST write a session summary:
 
-Append to `projects/[name]/memory/sessions.md` using the format in `MEMORY.md`. This includes:
-task, work done, outcomes, decisions made, open questions for next session, files changed.
+Run **`/session-end [project]`** — this writes the summary to `sessions.md`, logs undocumented decisions to `decisions.md`, updates Tier 2 agent memory in `shared/agent-memory/`, and commits everything.
 
-Even if the user doesn't ask, write the summary before ending.
+Even if the user doesn't ask, run `/session-end` before ending.
+
+### Skills available
+
+| Command | When to use |
+|---|---|
+| `/session-start [project]` | Always run at the start of a session to load context in the correct order |
+| `/session-end [project]` | Always run at the end of a session to write memory and commit |
+| `/spike-results [project] [spike-id]` | When a spike or discovery experiment completes — captures results, updates backlog, syncs GitHub |
 
 ### Example prompt
 

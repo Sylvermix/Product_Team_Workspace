@@ -427,6 +427,10 @@ implementation_review:
 - **Font usage log**: fonts already used in the product (to avoid repeating the same pairing)
 - **Cross-project agent memory**: `shared/agent-memory/product-design.md` — read at session start, append reusable aesthetic patterns and accessibility learnings after each session
 
+### Shared resources (read at session start or on demand)
+- **`shared/accessibility_checklist.md`** — ALWAYS read at session start. Every spec must pass WCAG AA before handoff to tech.
+- **`shared/agent-memory/product-design.md`** — read at session start. Aesthetic patterns and accessibility learnings accumulated over time.
+
 ### Shared state (across agents)
 - **Kanban board**: task status visible to all agents
 - **Changelog**: versioned record of all shipped changes

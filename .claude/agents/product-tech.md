@@ -373,6 +373,8 @@ tech_docs:
 | `on_debt_threshold_exceeded` | Automated metric trigger | Propose refactor scope → get Lead approval → `refactor_code` | Refactor plan → **Lead** |
 | `on_tracking_spec_received` | Data agent sends tracking events to implement | Implement events as part of feature | Implemented events → **Data** |
 | `on_feature_shipped` | Deployment complete at 100% | `generate_tech_docs` + update changelog | Docs + changelog → all agents |
+| **`on_story_started`** | **Tech begins work on a story** | **Update `backlog.yaml` status → `in_progress`. Update GitHub issue label → `status: in-progress`.** | — |
+| **`on_story_completed`** | **All acceptance criteria pass, PR merged** | **Update `backlog.yaml` status → `done`. Close GitHub issue (`state_reason: completed`). Append to `changelog.md`.** | — |
 
 ---
 
@@ -423,6 +425,11 @@ tech_docs:
 - **Test suite state**: coverage trend, flaky test log
 - **Deployment history**: versions, rollouts, rollbacks, incidents
 - **Cross-project agent memory**: `shared/agent-memory/product-tech.md` — read at session start, append reusable code patterns and technical heuristics after each session
+
+### Shared resources (read at session start or on demand)
+- **`shared/code_standards.md`** — ALWAYS read at session start. Non-negotiable coding rules that apply to every project.
+- **`shared/accessibility_checklist.md`** — read when implementing any UI component. WCAG AA compliance is a quality gate.
+- **`shared/agent-memory/product-tech.md`** — read at session start. Cross-project patterns accumulated over time.
 
 ### Shared state (across agents)
 - **Kanban board**: task status visible to all
