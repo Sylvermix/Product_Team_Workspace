@@ -4,6 +4,84 @@ End-of-session summaries. Latest at top. Next session reads this to pick up clea
 
 ---
 
+## 2026-04-17 — human owner + orchestrator — Validation session: pending decisions + product model expansion
+
+**Task**: Work through all pending validation points from the previous session (13 decisions across SPIKE-001, design blockers, DISC-001), and extend the product model with new AI-native features identified during the conversation.
+
+**Worked on**:
+
+**A. SPIKE-001 — all 5 blockers resolved**
+- Claude API account created ($50 loaded) + SerpAPI account created (free tier sufficient for spike)
+- Evaluators confirmed: product owner + Linh
+- GPU: wait and provision on-demand only if primary pipeline fails
+- Amazon PA-API: skipped — Google Shopping via SerpAPI covers multi-retailer (brands, ASOS, Vinted, Vestiaire, Depop, etc.)
+- $20 API budget: already covered by the $50 Claude credit
+
+**B. Design blockers — all 5 resolved**
+- `neutral.400` → darken globally to `#7a7570` (WCAG AA fix)
+- Scan API → streaming (progressive reveal) from MVP — not batch
+- Daily scan limit → 10 scans/day at MVP (~$0.20/user/day max)
+- Affiliate links → accessible without account (anonymous OK)
+- Guest mode → permanent but limited (browse + affiliate only; account required to save)
+
+**C. DISC-001 — deferred**
+- User research interviews postponed; product owner will trigger when ready
+
+**D. Product model — major expansion**
+
+Four new decisions locked by product owner:
+1. **User access model** — anonymous: browse + affiliate links; logged-in: scan, wardrobe, looks, wishlist, likes
+2. **Two scan intents** — "I own this" → wardrobe (size mandatory); "I want this" → wishlist
+3. **Light social in MVP** — public profiles + follow + wishlist via likes (full social feed deferred V2)
+4. **AI Agent (prompt bar)** — persistent throughout app; conversational product search + style profile building; no forms
+
+Five new epics added:
+- **US-040** — AI agent prompt bar (conversational, wardrobe-aware, pushes to wishlist)
+- **US-050/051/052** — Enriched product detail: multi-retailer price comparison (real-time), synthetic review summary (AI-aggregated), size social proof from matched users
+- **US-060** — Mandatory size capture on wardrobe scan (implicit size profile by brand + category)
+- **US-070** — Follow recommendations by style match + size match
+- **US-200** — Creator commission sharing (V2; architecture defined now)
+
+**E. Workspace infrastructure**
+- Tier 2 agent memory: replaced `scope:user` approach with versioned files in `shared/agent-memory/` (product-lead.md, product-design.md, product-tech.md) — now Git-tracked and cross-project
+
+**Outcome**:
+- SPIKE-001 is fully unblocked and can start immediately
+- Product model is significantly richer: AI-native from the ground up, social commerce architecture defined, creator economy roadmapped
+- backlog.yaml updated with 7 new user stories across 4 new epics
+- context.md updated with user access model table, new priorities section (7 epics), size profile strategy
+- All decisions logged in memory/decisions.md (7 new entries)
+- Workspace memory infrastructure upgraded
+
+**Decisions made**: 7 new entries in `memory/decisions.md` (see file for full reasoning)
+1. User access model + MVP social scope
+2. Streaming scan API from MVP
+3. Daily scan limit: 10/day
+4. neutral.400: darken globally to #7a7570
+5. Amazon PA-API: skipped
+6. GPU: wait, don't pre-provision
+7. AI Agent, size profile, product detail, creator economy (combined architectural decision)
+
+**Open questions / next steps**:
+- SPIKE-001 execution: start now. Product owner + Linh evaluate results independently on 100 photos
+- SPIKE-002 (legal/affiliate API review): not yet started — assign owner and begin
+- Onboarding specs need review: agent-based profile building replaces form-based onboarding; specs may need updating
+- Design: wardrobe grid (US-003) not yet designed; AI agent UX (US-040) not yet designed
+- Creator monetization (US-200): attribution tracking architecture needs to be scoped before MVP ships (even if reward UX is V2)
+- DISC-001: to be triggered by product owner when ready
+
+**Files changed**:
+- Modified: `projects/atelier/backlog.yaml` (7 new stories: US-030–032, US-040, US-050–052, US-060, US-070, US-200; US-103 updated)
+- Modified: `projects/atelier/context.md` (user access model section, priorities rewritten, size profile strategy)
+- Modified: `projects/atelier/memory/decisions.md` (7 new entries)
+- Modified: `projects/atelier/memory/sessions.md` (this entry)
+- Modified: `.claude/agents/product-lead.md`, `product-design.md`, `product-tech.md` (memory section updated)
+- Created: `shared/agent-memory/product-lead.md`, `product-design.md`, `product-tech.md`
+
+---
+
+
+
 ## 2026-04-16 — orchestrator — Parallel de-risking: SPIKE-001 plan + scan moment + onboarding + DISC-001 research
 
 **Task**: with the project initialized earlier the same day (product-lead foundational session), advance all three sprint-1 de-risking workstreams in a single pass — technical feasibility plan, the two highest-impact design surfaces (scan moment + onboarding), and the user research scaffolding for DISC-001. Goal was to reach the 2026-05-01 feasibility gate with every stream ready to execute, bounded only by human-owner decisions.
