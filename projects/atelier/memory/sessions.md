@@ -4,6 +4,55 @@ End-of-session summaries. Latest at top. Next session reads this to pick up clea
 
 ---
 
+## 2026-04-17 — human owner + orchestrator — Workspace tooling, GitHub board, visual documentation
+
+**Task**: Après la session de validation du matin, construire l'infrastructure de travail : board GitHub, diagrammes Mermaid, skills de session, mise à jour des agents.
+
+**Worked on**:
+- Création de 20 GitHub issues depuis `backlog.yaml` (labels epic/priority/status + JTBD sur chaque ticket)
+- Protocole `sync_github_issues` ajouté à `product-lead.md` (backlog ↔ GitHub toujours synchronisés)
+- Mémoire Tier 2 : remplacement de `scope:user` par `shared/agent-memory/` versionné dans Git
+- Skill `/session-end` : résumé + decisions + Tier 2 + commit/push
+- Skill `/session-start` : chargement contexte dans le bon ordre + brief de session
+- Skill `/spike-results` : capture résultats spike, maj backlog, sync GitHub, log decisions
+- `CLAUDE.md` mis à jour : 3 skills documentés, `/session-end` rendu obligatoire
+- `product-tech` : hooks `on_story_started` / `on_story_completed` + sync GitHub + ressources partagées
+- `product-design` : `accessibility_checklist.md` obligatoire au session start
+- 6 diagrammes Mermaid créés dans `docs/diagrams/` :
+  - `onboarding-flow.md` — flow Beat 0→6
+  - `scan-states.md` — 13 états du scan
+  - `user-access-model.md` — anonyme vs compte
+  - `epic-dependencies.md` — backlog map + chemin critique
+  - `team-agents.md` — org équipe, responsabilités, cycle story, skills
+  - `technical-architecture.md` — stack, pipeline AI, ERD, budgets, compliance
+
+**Outcome**:
+- Board GitHub opérationnel : 20 issues avec JTBD, labels, acceptance criteria
+- Tout changement backlog → sync GitHub automatique (protocole inscrit dans product-lead)
+- Infrastructure mémoire complète : Tier 1 (Git) + Tier 2 (shared/) + 3 skills de session
+- Documentation visuelle complète : 6 diagrammes rendus sur GitHub via Mermaid natif
+- Agents mis à jour : lifecycle complet des stories, ressources partagées obligatoires
+
+**Decisions made**:
+- Pas de merge dans `/session-end` — le merge reste une action humaine explicite
+- Tier 2 dans Git (`shared/agent-memory/`) plutôt que `~/.claude/agent-memory/` (versionné, partageable)
+- JTBD obligatoire sur chaque issue GitHub (format : When / I want / So I can)
+
+**Open questions / next steps**:
+- Démarrer SPIKE-001 : product owner + Linh évaluent 100 photos indépendamment
+- SPIKE-002 (legal & API review) : assigner un owner, démarrer en parallèle
+- Lancer `/spike-results atelier SPIKE-001` quand les résultats sont prêts (avant le 1er mai)
+- Décider du merge de la branche `claude/summary-pending-validation-D5ls4` → main (conseil à venir)
+
+**Files changed**:
+- Créés : `projects/atelier/docs/diagrams/` (6 fichiers)
+- Créés : `.claude/commands/session-start.md`, `session-end.md`, `spike-results.md`
+- Créés : `shared/agent-memory/product-lead.md`, `product-design.md`, `product-tech.md`
+- Modifiés : `CLAUDE.md`, `.claude/agents/product-lead.md`, `product-design.md`, `product-tech.md`
+- Modifiés : `projects/atelier/memory/decisions.md` (7 nouvelles entrées)
+
+---
+
 ## 2026-04-17 — human owner + orchestrator — Validation session: pending decisions + product model expansion
 
 **Task**: Work through all pending validation points from the previous session (13 decisions across SPIKE-001, design blockers, DISC-001), and extend the product model with new AI-native features identified during the conversation.
