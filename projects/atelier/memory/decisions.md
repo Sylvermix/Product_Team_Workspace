@@ -34,7 +34,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — User access model & MVP social scope
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: validation session reviewing pending decisions. The question of affiliate link access (anonymous vs logged-in) led to a broader clarification of the full access model.
 **Decision**:
 - Anonymous users: can browse public profiles and tap affiliate links (generates commission)
@@ -52,7 +52,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Scan API: streaming (progressive reveal) from MVP
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: choice between streaming (results arrive progressively) and batch (all results at once) for the scan API.
 **Decision**: streaming from MVP — the progressive reveal is the core "scan moment" differentiator and must ship day one.
 **Options considered**:
@@ -64,7 +64,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Scan daily limit: 10 scans/day at MVP
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: need to protect inference costs during beta while covering real usage.
 **Decision**: 10 scans/day per user. At ~$0.02/scan, max cost = $0.20/user/day.
 **Options considered**:
@@ -77,7 +77,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — neutral.400 token: darken globally to #7a7570
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: neutral.400 (#a09b90) fails WCAG AA for small text on light backgrounds. Two options: darken globally or fix per use-case.
 **Decision**: darken globally to #7a7570 across the design system.
 **Options considered**:
@@ -89,7 +89,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Amazon PA-API: skipped for MVP
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: Google Shopping (via SerpAPI) covers multi-retailer results including brands, multi-brand sites, and 2nd-hand platforms (Vinted, Vestiaire, Depop). Amazon adds little value on fashion in Europe.
 **Decision**: skip Amazon PA-API. Google Shopping is sufficient for MVP.
 **Consequences**: no affiliate dependency on Amazon at launch. Revisit if catalogue gaps appear in post-launch data.
@@ -99,7 +99,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — GPU: wait, don't pre-provision
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: SPIKE-001 primary pipeline (GroundingDINO + Claude Vision + SerpAPI) runs via API — no GPU needed. GPU only required if primary pipeline fails and fallback (SAM 2 + CLIP) is needed.
 **Decision**: provision GPU on-demand only if primary pipeline scores below 75%.
 **Consequences**: saves cost; adds ~1 day delay if fallback is needed (acceptable).
@@ -108,7 +108,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Creator monetization: architecture defined, implementation V2
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: users who drive affiliate sales via their profile should be rewarded.
 **Decision**: define the mechanism now (attribution at user level when follower buys via profile link), implement in V2 after MVP proves the affiliate model works.
 **Reward options to evaluate at V2**: cashback, in-app credits, tiered programme (Ambassador/Elite/Pro), direct payout above threshold.
@@ -119,7 +119,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Social discovery: follow recommendations on style + size match
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: users need a reason to follow others beyond generic "people you may know". Style match + size match creates utility (their product choices are directly relevant to my buying decisions).
 **Decision**: follow recommendations powered by two signals — style tag overlap + size profile similarity.
 **Consequences**: US-070 added to backlog. Requires size profile (US-060) and style profile (collected via agent) to be populated first.
@@ -128,7 +128,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Product detail: price comparison + synthetic reviews + size social proof
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: showing a single affiliate link is not enough — users want to buy at the best price and with confidence.
 **Decision**: product detail shows (1) all retailers sorted by live price, (2) AI-synthesised review summary across sites, (3) size chosen by users with matching size profile.
 **Consequences**: US-050, US-051, US-052 added to backlog. Review synthesis requires a separate AI pipeline. Size social proof requires minimum 3 matching users (privacy threshold).
@@ -137,7 +137,7 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — Size collection: mandatory on every wardrobe scan, implicit profile building
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: size is the biggest friction in online fashion buying. Collecting it via a form is a barrier; collecting it naturally via the wardrobe scan is frictionless.
 **Decision**: size field is mandatory when adding a garment to wardrobe. Stored per brand + category + size. After 5+ items, user has a usable size profile. No standalone measurement form.
 **Consequences**: US-060 added as critical. US-001 acceptance criteria updated to include mandatory size. US-102 (body measurements form) remains icebox — replaced by this implicit approach.
@@ -146,18 +146,18 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ## 2026-04-17 — AI Agent: persistent prompt bar, central to the product
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: Atelier must be AI-native, not AI-featured. The agent is the primary interface for product discovery and profile building.
 **Decision**: persistent prompt bar throughout the app. Agent has full context (wardrobe, wishlist, size profile, style profile). Handles: conversational product search → pushes to wishlist, style preference collection (no forms), wardrobe advice.
 **Consequences**: US-040 added to backlog. Onboarding specs need review — agent replaces form-based profile setup. Significant backend work: context management, wardrobe-aware LLM calls.
 
 ---
 
-## 2026-04-17 — SPIKE-001 evaluators: product owner + Linh
+## 2026-04-17 — SPIKE-001 evaluators: Product Builder + Linh
 
-**Who decided**: product owner (human)
+**Who decided**: Product Builder
 **Context**: inter-rater reliability requires two independent human evaluators with fashion literacy.
-**Decision**: product owner + Linh serve as the two evaluators for the 100-photo test set.
+**Decision**: Product Builder + Linh serve as the two evaluators for the 100-photo test set.
 **Consequences**: both must evaluate independently before comparing scores.
 
 ---

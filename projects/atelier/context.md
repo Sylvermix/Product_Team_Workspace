@@ -234,4 +234,4 @@ The AI agent also collects style preferences, taste, and aesthetic direction con
 - **Key stakeholders**: [names]
 - **AI advisor**: [recommended for an ML-heavy project]
 - **Legal advisor**: [recommended before public launch]
-- **Decision-making**: product owner has final call on scope; engineering on feasibility; design on visual direction within aesthetic guardrails.
+- **Decision-making**: Product Builder has final call on scope; engineering on feasibility; design on visual direction within aesthetic guardrails.

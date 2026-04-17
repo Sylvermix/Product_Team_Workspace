@@ -103,7 +103,7 @@ Things we're watching that could derail progress.
 
 ## 10. Team & stakeholders (human side)
 
-- **Product owner**: name, contact, decision authority
+- **Product Builder**: name, contact, decision authority
 - **Engineering lead**: name, contact
 - **Design lead**: name, contact
 - **Key stakeholders**: names + what they care about
