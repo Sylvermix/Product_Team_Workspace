@@ -1,6 +1,6 @@
 # /session-end
 
-Closes the current working session for a project by writing a session summary and logging all decisions made.
+Closes the current working session for a project by writing a session summary, logging decisions, and updating ALL documentation to reflect the session's work.
 
 ## Instructions
 
@@ -18,7 +18,7 @@ The project root is `projects/[name]/`.
 
 Read the following files to reconstruct what happened this session:
 - `projects/[name]/memory/sessions.md` — last 2 entries (to match the format and avoid duplication)
-- `projects/[name]/memory/decisions.md` — first 30 lines (to see the most recent entries already logged)
+- `projects/[name]/memory/decisions.md` — first 30 lines (most recent entries already logged)
 - `projects/[name]/backlog.yaml` — current state
 - Any files modified during this session (infer from conversation)
 
@@ -62,7 +62,7 @@ Review the conversation. For every significant decision made during this session
 ```markdown
 ## YYYY-MM-DD — [Short title]
 
-**Who decided**: agent / human owner
+**Who decided**: Product Builder / agent
 **Context**: what was the situation that prompted this decision
 **Options considered**:
 - Option A: ... (chosen/rejected because...)
@@ -77,20 +77,69 @@ Rules:
 - A "significant decision" is: scope change, architecture/stack choice, aesthetic commitment, anything expensive to reverse, anything that resolves a prior ambiguity
 - Conversational clarifications that don't affect the product are NOT decisions
 
-### Step 5 — Update Tier 2 agent memory
+### Step 5 — Full documentation sweep
 
-Tier 2 memory lives in `shared/agent-memory/`. It stores **cross-project, reusable** patterns — not project-specific decisions (those go in `decisions.md`).
+Review every category below. For each file: read it, ask "is it still accurate given what happened this session?", update it if stale, skip it if unchanged. **Do not update files just to add timestamps — only update when content changed.**
 
-For each agent that was active this session, check if the session produced any reusable insight worth appending to their memory file:
+#### 5a — Project core files
+
+| File | Update if... |
+|---|---|
+| `projects/[name]/context.md` | Vision, audience, stack, constraints, priorities, or access model changed |
+| `projects/[name]/backlog.yaml` | Story status changed, new stories captured, priorities shifted, spikes resolved |
+| `projects/[name]/roadmap.yaml` | Sprint goal, milestone dates, or candidate stories changed |
+| `projects/[name]/changelog.md` | A story or feature was completed and shipped this session |
+
+#### 5b — Memory files
+
+| File | Update if... |
+|---|---|
+| `projects/[name]/memory/learnings.md` | A non-obvious insight was confirmed or disproved (user behavior, tech constraint, design assumption) |
+| `projects/[name]/memory/decisions.md` | Already handled in Step 4 |
+| `projects/[name]/memory/sessions.md` | Already handled in Step 3 |
+| `projects/[name]/memory/research/` | New research, benchmarks, or interview data was collected |
+| `projects/[name]/memory/experiments/` | A spike or experiment produced results |
+| `projects/[name]/memory/references/` | A useful reference was identified |
+
+#### 5c — Design system
+
+| File | Update if... |
+|---|---|
+| `projects/[name]/design_system/tokens.yaml` | New tokens were identified, existing tokens were modified or removed |
+| `projects/[name]/design_system/components.yaml` | New components were identified or specified |
+
+#### 5d — Specs
+
+| File | Update if... |
+|---|---|
+| `projects/[name]/specs/**` | A decision this session changed a spec's content, flow, or acceptance criteria |
+
+Only update specs that were directly affected — do not sweep all specs.
+
+#### 5e — Diagrams
+
+| Diagram | Update if... |
+|---|---|
+| `projects/[name]/docs/diagrams/team-agents.md` | Team roles, responsibilities, or skills changed |
+| `projects/[name]/docs/diagrams/onboarding-flow.md` | Onboarding flow, beats, or account gating changed |
+| `projects/[name]/docs/diagrams/scan-states.md` | Scan flow states, intents, or error handling changed |
+| `projects/[name]/docs/diagrams/user-access-model.md` | Permissions table, anonymous vs logged-in model changed |
+| `projects/[name]/docs/diagrams/epic-dependencies.md` | New epics added, dependencies changed, stories moved |
+| `projects/[name]/docs/diagrams/technical-architecture.md` | Stack, pipeline, ERD, budget, or infra decisions changed |
+
+Update `Last updated:` date on any diagram you modify.
+
+#### 5f — Tier 2 agent memory (cross-project patterns)
+
+For each agent active this session, check if the session produced a reusable insight worth appending to their memory file in `shared/agent-memory/`:
 
 | Agent | File | What to log |
 |---|---|---|
-| product-lead | `shared/agent-memory/product-lead.md` | Prioritization heuristics, estimation patterns, discovery shortcuts, recurring stakeholder dynamics |
-| product-design | `shared/agent-memory/product-design.md` | Aesthetic patterns that worked, accessibility edge cases, component combinations, motion principles |
-| product-tech | `shared/agent-memory/product-tech.md` | Code patterns, recurring bugs, tooling preferences, API quirks, performance tricks |
+| product-lead | `shared/agent-memory/product-lead.md` | Prioritization heuristics, estimation patterns, discovery shortcuts |
+| product-design | `shared/agent-memory/product-design.md` | Aesthetic patterns, accessibility edge cases, motion principles |
+| product-tech | `shared/agent-memory/product-tech.md` | Code patterns, API quirks, tooling preferences, performance tricks |
 
-**Format for each entry** (append at top of the relevant file, after the header):
-
+Format (append at top, after the header):
 ```markdown
 ## YYYY-MM-DD — [Project] — [Short title]
 
@@ -100,36 +149,26 @@ For each agent that was active this session, check if the session produced any r
 **Applies to**: which types of projects or situations this generalises to
 ```
 
-**Rules**:
-- Only append if there is a genuinely reusable insight — not every session produces one
-- Do NOT copy project-specific decisions here — those stay in `decisions.md`
-- If nothing reusable was learned, skip this step entirely (write nothing)
+Only append if there is a genuinely reusable insight — not every session produces one.
 
-### Step 5b — Review and update diagrams
+#### 5g — Workspace-level files
 
-Check `projects/[name]/docs/diagrams/` for any diagrams that may be stale given what happened this session.
-
-For each diagram file, ask: **does anything changed this session contradict or make this diagram incomplete?**
-
-| Diagram | Update if... |
+| File | Update if... |
 |---|---|
-| `team-agents.md` | Team roles, responsibilities, or skills changed |
-| `onboarding-flow.md` | Onboarding flow, beats, or account gating changed |
-| `scan-states.md` | Scan flow states, intents, or error handling changed |
-| `user-access-model.md` | Permissions table, anonymous vs logged-in model changed |
-| `epic-dependencies.md` | New epics added, dependencies changed, stories moved |
-| `technical-architecture.md` | Stack, pipeline, ERD, budget, or infra decisions changed |
+| `CLAUDE.md` | Team principles, folder structure, or skill list changed |
+| `.claude/agents/product-lead.md` | Lead's protocols, tools, or responsibilities changed |
+| `.claude/agents/product-design.md` | Design's protocols, tools, or responsibilities changed |
+| `.claude/agents/product-tech.md` | Tech's protocols, tools, or responsibilities changed |
+| `shared/code_standards.md` | A new coding rule or pattern was established |
+| `shared/accessibility_checklist.md` | A new accessibility finding or rule was confirmed |
 
-**Rules**:
-- Update `Last updated:` date on any diagram you modify
-- Only update diagrams where the session produced a real change — do not touch diagrams for cosmetic reasons
-- If a diagram needs a major rewrite that would take significant effort, note it as a next-session task in the session summary instead
+These change rarely — only update if the session explicitly changed something at this level.
 
 ### Step 6 — Commit, merge into main, and push
 
-Stage and commit all memory files changed:
+Stage ALL files changed during this session (memory + docs + any updated files):
 ```
-git add projects/[name]/memory/sessions.md projects/[name]/memory/decisions.md shared/agent-memory/
+git add -A
 git commit -m "docs([name]): session summary YYYY-MM-DD — [short title]"
 git push -u origin [current-branch]
 ```
@@ -148,8 +187,8 @@ If the merge produces conflicts, stop and ask the user to resolve them before co
 
 Print a short summary:
 - Session title
+- Files updated in the documentation sweep (by category)
 - Number of decisions logged
-- Tier 2 entries added (or "none" if nothing reusable)
-- Files committed
+- Tier 2 entries added (or "none")
 - Branch merged into main: yes/no
 - What the next session should start with (top open question)
