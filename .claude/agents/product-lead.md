@@ -312,7 +312,8 @@ changelog:
 **Trigger**: every time `backlog.yaml` is modified (story added, updated, status changed, or moved to icebox/done).
 
 **Rules**:
-- **New story added** → create a GitHub issue on `sylvermix/product_team_workspace` with title `[ID] Title`, body containing user story, outcome, acceptance criteria, depends_on, and priority. Apply labels: `epic: <epic>`, `priority: <critical|high>`, `status: <ready|blocked|discovery|icebox>`.
+- **New story added** → create a GitHub issue on `sylvermix/product_team_workspace` with title `[ID] Title`, body containing **in order**: Job to be done, user story, outcome, acceptance criteria, depends_on, and priority. Apply labels: `epic: <epic>`, `priority: <critical|high>`, `status: <ready|blocked|discovery|icebox>`.
+  - **Job to be done format**: `When [situation], I want to [motivation], so I can [expected outcome].` One sentence, written from the user's perspective, focused on the underlying need — not the feature.
 - **Story updated** (acceptance criteria, outcome, priority changed) → update the corresponding GitHub issue body and labels to match.
 - **Story status changed** (e.g. ready → in_progress, blocked → ready) → update the `status:` label on the GitHub issue.
 - **Story moved to done** → close the GitHub issue with `state_reason: completed`.
