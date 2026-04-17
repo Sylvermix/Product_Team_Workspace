@@ -1,12 +1,12 @@
 # Team Organisation — AI Product Agents
 **Atelier — Rôles, responsabilités et interactions**
-Last updated: 2026-04-17
+Last updated: 2026-04-17 (role: Product Owner → Product Builder)
 
 ## Organisation générale
 
 ```mermaid
 flowchart TD
-    HUMAN(["👤 Product Owner\n(Human)"])
+    HUMAN(["👤 Product Builder\n(Human)"])
 
     subgraph TEAM ["🏢 AI Product Team"]
         direction TB
@@ -102,7 +102,7 @@ mindmap
 
 ```mermaid
 sequenceDiagram
-    actor H as 👤 Human
+    actor H as 👤 Product Builder
     participant L as 🧑‍💼 Lead
     participant D as 🎨 Design
     participant T as ⚙️ Tech
