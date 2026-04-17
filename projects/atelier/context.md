@@ -228,7 +228,7 @@ The AI agent also collects style preferences, taste, and aesthetic direction con
 
 *Fill in by the human owner.*
 
-- **Product owner**: [name] — decision authority on scope, priority, business
+- **Product Builder**: [name] — decision authority on scope, priority, UX, design vision, and business
 - **Engineering lead**: [name]
 - **Design lead**: [name]
 - **Key stakeholders**: [names]
