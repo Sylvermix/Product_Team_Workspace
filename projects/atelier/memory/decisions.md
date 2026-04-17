@@ -78,6 +78,53 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ---
 
+## 2026-04-17 — Creator monetization: architecture defined, implementation V2
+
+**Who decided**: product owner (human)
+**Context**: users who drive affiliate sales via their profile should be rewarded.
+**Decision**: define the mechanism now (attribution at user level when follower buys via profile link), implement in V2 after MVP proves the affiliate model works.
+**Reward options to evaluate at V2**: cashback, in-app credits, tiered programme (Ambassador/Elite/Pro), direct payout above threshold.
+**Consequences**: US-200 added to backlog as V2. Attribution tracking architecture must be designed at MVP even if reward UX ships later.
+**Revisit if**: creator churn becomes a problem pre-V2; or a competitor launches creator monetization.
+
+---
+
+## 2026-04-17 — Social discovery: follow recommendations on style + size match
+
+**Who decided**: product owner (human)
+**Context**: users need a reason to follow others beyond generic "people you may know". Style match + size match creates utility (their product choices are directly relevant to my buying decisions).
+**Decision**: follow recommendations powered by two signals — style tag overlap + size profile similarity.
+**Consequences**: US-070 added to backlog. Requires size profile (US-060) and style profile (collected via agent) to be populated first.
+
+---
+
+## 2026-04-17 — Product detail: price comparison + synthetic reviews + size social proof
+
+**Who decided**: product owner (human)
+**Context**: showing a single affiliate link is not enough — users want to buy at the best price and with confidence.
+**Decision**: product detail shows (1) all retailers sorted by live price, (2) AI-synthesised review summary across sites, (3) size chosen by users with matching size profile.
+**Consequences**: US-050, US-051, US-052 added to backlog. Review synthesis requires a separate AI pipeline. Size social proof requires minimum 3 matching users (privacy threshold).
+
+---
+
+## 2026-04-17 — Size collection: mandatory on every wardrobe scan, implicit profile building
+
+**Who decided**: product owner (human)
+**Context**: size is the biggest friction in online fashion buying. Collecting it via a form is a barrier; collecting it naturally via the wardrobe scan is frictionless.
+**Decision**: size field is mandatory when adding a garment to wardrobe. Stored per brand + category + size. After 5+ items, user has a usable size profile. No standalone measurement form.
+**Consequences**: US-060 added as critical. US-001 acceptance criteria updated to include mandatory size. US-102 (body measurements form) remains icebox — replaced by this implicit approach.
+
+---
+
+## 2026-04-17 — AI Agent: persistent prompt bar, central to the product
+
+**Who decided**: product owner (human)
+**Context**: Atelier must be AI-native, not AI-featured. The agent is the primary interface for product discovery and profile building.
+**Decision**: persistent prompt bar throughout the app. Agent has full context (wardrobe, wishlist, size profile, style profile). Handles: conversational product search → pushes to wishlist, style preference collection (no forms), wardrobe advice.
+**Consequences**: US-040 added to backlog. Onboarding specs need review — agent replaces form-based profile setup. Significant backend work: context management, wardrobe-aware LLM calls.
+
+---
+
 ## 2026-04-17 — SPIKE-001 evaluators: product owner + Linh
 
 **Who decided**: product owner (human)

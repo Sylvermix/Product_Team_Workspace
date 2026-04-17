@@ -147,12 +147,24 @@ Scan intent splits into two flows:
 
 ## 7. Current priorities
 
-Top 4 to hit MVP (first 8-12 weeks):
+Top 7 epics for MVP:
 
-1. **Wardrobe core** — user adds garments by photo (captured or uploaded), AI auto-categorizes (type, color, season), editable grid view. The foundation.
-2. **"Scan" product identification** — the ceremonial moment. User uploads any photo → AI identifies garments → matching products via Google Shopping. Two intents: add to wardrobe or save to wishlist.
-3. **Look creation from wardrobe** — user assembles saved garments into named outfits. Validates users will curate, not just dump.
-4. **Public profiles + wishlist social** — public profile shows looks/wardrobe; anonymous visitors can browse and tap affiliate links; logged-in users can like products from others → wishlist.
+1. **Wardrobe core** — scan garments, mandatory size capture per item, AI auto-tags. Foundation for everything.
+2. **Scan** — AI identifies garments in any photo. Two intents: add to wardrobe (size required) or save to wishlist.
+3. **Look creation** — assemble saved garments into named outfits.
+4. **AI Agent (prompt bar)** — persistent throughout the app. Handles conversational product search, style profile building, and pushes products to wishlist. No forms — everything collected naturally through conversation and scan.
+5. **Product detail enriched** — multi-retailer price comparison (real-time, sorted), synthetic review summary (AI-aggregated), size social proof from users with similar profiles.
+6. **Public profiles + social discovery** — public wardrobe/looks, follow recommendations based on style match + size match.
+7. **Creator monetization (V2)** — commission sharing with users who drive sales via their profiles. Architecture defined; implementation deferred.
+
+## 7b. Size profile strategy
+
+Size is collected **implicitly and mandatorily** through wardrobe scans — never via a standalone form. Every garment added requires a size. After 5+ items, the app has a brand-aware size profile per category. This feeds:
+- Size social proof on product detail ("users like you chose M at Sandro")
+- Follow recommendations (size match as a filter)
+- Future fit intelligence
+
+The AI agent also collects style preferences, taste, and aesthetic direction conversationally — no onboarding questionnaire.
 
 **Explicitly deferred (v2):**
 - Posting videos/photos to a feed

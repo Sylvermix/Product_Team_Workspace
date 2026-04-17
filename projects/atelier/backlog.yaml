@@ -233,8 +233,176 @@ ready:
     priority: "high"
 
   # ─────────────────────────────────────────────────────────────
-  # Epic 3: Look creation
+  # Epic 5: AI Agent (prompt bar)
   # ─────────────────────────────────────────────────────────────
+  - id: "US-040"
+    epic: "ai_agent"
+    title: "Persistent prompt bar — AI agent accessible throughout the app"
+    format: "As a user, I want to talk to an AI agent from anywhere in the app so I can search products, get style advice, and build my profile conversationally"
+    outcome: "50%+ of MAU use the agent at least once per week"
+    score:
+      impact: 5
+      confidence: 3
+      effort: 5
+      total: 3.0
+      reasoning: "core AI-native differentiator; high effort but central to product vision"
+    acceptance_criteria:
+      functional:
+        - "Prompt bar accessible from every main screen (persistent bottom bar or FAB)"
+        - "Agent understands product search intent: 'find me a navy blazer under 200€'"
+        - "Agent has context: knows user's wardrobe, wishlist, style profile, size profile"
+        - "Agent pushes product suggestions directly into wishlist with user confirmation"
+        - "Agent collects style/taste preferences conversationally (no forms)"
+      quality:
+        - "First agent response in < 2s"
+        - "Context window includes wardrobe contents and size profile"
+    depends_on: ["US-010", "US-011"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
+  # Epic 6: Product detail (enriched)
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-050"
+    epic: "product_detail"
+    title: "Multi-retailer price comparison on product detail"
+    format: "As a user, I want to see all sites selling a product sorted by current price so I can buy at the best price"
+    outcome: "tap-through rate on product detail ≥ 35%"
+    score:
+      impact: 5
+      confidence: 4
+      effort: 3
+      total: 6.7
+      reasoning: "direct purchase funnel; key trust signal"
+    acceptance_criteria:
+      functional:
+        - "Product detail shows all available retailers for that product"
+        - "Sorted by price ascending by default; user can reverse"
+        - "Price updated in real-time or < 1h cache"
+        - "Retailer name, price, availability, delivery estimate shown per row"
+        - "Tap → affiliate deep link to retailer"
+      quality:
+        - "Price list loads in < 1.5s"
+        - "Graceful empty state if only one retailer found"
+    depends_on: ["US-010"]
+    priority: "high"
+
+  - id: "US-051"
+    epic: "product_detail"
+    title: "Synthetic review summary on product detail"
+    format: "As a user, I want a single synthesized review summary across all sites so I don't have to read hundreds of reviews"
+    outcome: "users who view reviews have 20%+ higher tap-through rate"
+    score:
+      impact: 4
+      confidence: 3
+      effort: 4
+      total: 3.0
+      reasoning: "trust builder; differentiator vs basic price aggregators; AI synthesis needed"
+    acceptance_criteria:
+      functional:
+        - "Global rating score (weighted average across sources)"
+        - "AI-generated 3-5 sentence summary: what people love, what they flag"
+        - "Source count shown ('Based on 340 reviews across 4 sites')"
+        - "Expandable to per-site breakdown"
+      quality:
+        - "Synthesis generated server-side and cached per product"
+        - "Refreshed when new reviews detected (weekly minimum)"
+    depends_on: ["US-050"]
+    priority: "high"
+
+  - id: "US-052"
+    epic: "product_detail"
+    title: "Size social proof from users with similar profile"
+    format: "As a user, I want to see what size users with my measurements chose for this product so I can buy with confidence"
+    outcome: "size social proof shown → purchase conversion +15%"
+    score:
+      impact: 5
+      confidence: 3
+      effort: 3
+      total: 5.0
+      reasoning: "solves the biggest online fashion friction (wrong size); requires size profile data to exist"
+    acceptance_criteria:
+      functional:
+        - "On product detail: 'Users like you (size profile match) chose size M at this brand'"
+        - "Match based on size profile built from wardrobe scans"
+        - "Minimum 3 matching users required to show data (privacy threshold)"
+        - "If insufficient data: show global size distribution instead"
+      quality:
+        - "Anonymous — shows size chosen, not user identity"
+        - "Only shown when user has ≥5 wardrobe items with sizes"
+    depends_on: ["US-050", "US-001"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
+  # Epic 7: Size profile (implicit collection)
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-060"
+    epic: "size_profile"
+    title: "Mandatory size capture on wardrobe scan"
+    format: "As a user, I want to specify the size of each garment I add so the app learns my size profile per brand and category"
+    outcome: "95%+ of wardrobe items have a size attached; size profile complete after 5+ items"
+    score:
+      impact: 5
+      confidence: 5
+      effort: 2
+      total: 12.5
+      reasoning: "low effort; unlocks size social proof, fit recommendations, and social commerce features"
+    acceptance_criteria:
+      functional:
+        - "After AI tags a scanned garment, size field is mandatory before saving"
+        - "Size options are brand-aware when brand is detected (XS/S/M/L/XL or numeric per category)"
+        - "User can enter free text if brand sizing not available"
+        - "Size stored per item: brand + category + size value"
+      quality:
+        - "One-tap size selection (not a text input by default)"
+        - "Size field pre-filled if user has worn that brand+category before"
+    depends_on: ["US-001"]
+    priority: "critical"
+
+  # ─────────────────────────────────────────────────────────────
+  # Epic 8: Social discovery (follow recommendations)
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-070"
+    epic: "social_discovery"
+    title: "Follow user recommendations based on style + size match"
+    format: "As a user, I want to discover and follow users who share my style and measurements so their product choices are relevant to me"
+    outcome: "avg follows per new user ≥ 5 in first week"
+    score:
+      impact: 4
+      confidence: 3
+      effort: 4
+      total: 3.0
+      reasoning: "drives retention + affiliate commission via social browsing; requires style and size profiles to be populated"
+    acceptance_criteria:
+      functional:
+        - "Recommendation surface: 'Users who match your style' + 'Users with your measurements'"
+        - "Match algorithm: style tags overlap + size profile similarity"
+        - "Follow button on recommendation cards and profile pages"
+        - "Following feed: looks and wishlist updates from followed users"
+      quality:
+        - "Recommendations refresh daily"
+        - "No recommendation shown until user has ≥3 wardrobe items and 1 look"
+    depends_on: ["US-030", "US-060"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
+  # Creator monetization (V2 — architecture defined now)
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-200"
+    epic: "creator_economy"
+    title: "Creator commission sharing on affiliate sales"
+    format: "As a content creator on Atelier, I want to earn a share of the commission when my followers buy through my profile so I'm rewarded for driving sales"
+    outcome: "top 10% creators earn meaningful rewards; creator retention +30%"
+    score:
+      impact: 5
+      confidence: 3
+      effort: 5
+      total: 3.0
+      reasoning: "high strategic value but complex (legal, payout, tracking); deferred to V2"
+    captured: "2026-04-17"
+    reason_deferred: "requires affiliate tracking at user level, legal payout structure, and critical mass of sales volume — V2 after MVP proves commission model"
+    notes: "Mechanism: when user A buys via user B's product link, Atelier attributes the sale to B. Reward options to evaluate: cashback, in-app credits, tiered programme (Ambassador/Elite/Pro), direct payout above threshold."
+
+
   - id: "US-020"
     epic: "looks"
     title: "Create a look from wardrobe items"
