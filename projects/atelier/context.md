@@ -128,24 +128,42 @@ Modular monolith backend to start. Microservices only if justified later. ML inf
 
 ---
 
-## 6. Current priorities
+## 6. User access model (validated 2026-04-17)
 
-Top 3 to hit MVP (first 8-12 weeks):
+| Action | Anonymous | Logged-in |
+|--------|-----------|-----------|
+| Browse public profiles | ✅ | ✅ |
+| Tap affiliate product links | ✅ | ✅ |
+| Scan a photo | ❌ | ✅ |
+| Build wardrobe | ❌ | ✅ |
+| Create looks | ❌ | ✅ |
+| Like products / wishlist | ❌ (prompted to sign up) | ✅ |
+
+Account creation is deferred to the first "save" action. Scan results are visible before account creation.
+
+Scan intent splits into two flows:
+- **"I own this"** → adds to wardrobe (requires account)
+- **"I want this"** → adds to wishlist (requires account; anonymous sees results but can't save)
+
+## 7. Current priorities
+
+Top 4 to hit MVP (first 8-12 weeks):
 
 1. **Wardrobe core** — user adds garments by photo (captured or uploaded), AI auto-categorizes (type, color, season), editable grid view. The foundation.
-2. **"Scan" product identification** — the ceremonial moment. User uploads any photo → AI identifies garments → matching products across retailers with prices. If this doesn't work well, nothing else matters.
+2. **"Scan" product identification** — the ceremonial moment. User uploads any photo → AI identifies garments → matching products via Google Shopping. Two intents: add to wardrobe or save to wishlist.
 3. **Look creation from wardrobe** — user assembles saved garments into named outfits. Validates users will curate, not just dump.
+4. **Public profiles + wishlist social** — public profile shows looks/wardrobe; anonymous visitors can browse and tap affiliate links; logged-in users can like products from others → wishlist.
 
 **Explicitly deferred (v2):**
 - Posting videos/photos to a feed
-- Social features (following, liking, commenting)
+- Full social feed (following, comments)
 - Body measurements (needs careful privacy design)
 - Shoppable video content
 - Creator monetization
 
 ---
 
-## 7. Constraints
+## 8. Constraints
 
 ### Legal / compliance
 - **GDPR (EU)**: users can export/delete all data; photos + measurements are personal data with elevated sensitivity
@@ -174,7 +192,7 @@ Top 3 to hit MVP (first 8-12 weeks):
 
 ---
 
-## 8. Key decisions history
+## 9. Key decisions history
 
 *Appended as decisions are made.*
 
@@ -182,7 +200,7 @@ Top 3 to hit MVP (first 8-12 weeks):
 
 ---
 
-## 9. Active risks
+## 10. Active risks
 
 - **AI product identification accuracy** — could kill the core value prop if < 70% useful match rate. **Mitigation**: dedicate first spike to validating matching quality before committing full MVP.
 - **Product catalog access** — retailer APIs may have restrictive terms, rate limits, high cost. **Mitigation**: stack multiple sources; plan graceful degradation.
@@ -194,7 +212,7 @@ Top 3 to hit MVP (first 8-12 weeks):
 
 ---
 
-## 10. Team & stakeholders (human side)
+## 11. Team & stakeholders (human side)
 
 *Fill in by the human owner.*
 

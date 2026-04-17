@@ -2,7 +2,7 @@
 # Authoritative priority list. If work isn't here, it's not being built.
 # Owner: Lead agent. Updated on prioritization cycle.
 
-updated_at: "2026-04-16"
+updated_at: "2026-04-17"
 
 # ─────────────────────────────────────────────────────────────
 # IN PROGRESS
@@ -164,6 +164,75 @@ ready:
     priority: "high"
 
   # ─────────────────────────────────────────────────────────────
+  # Epic 4: Profiles & Social (light — MVP)
+  # ─────────────────────────────────────────────────────────────
+  - id: "US-030"
+    epic: "profiles"
+    title: "Public user profile with wardrobe & looks"
+    format: "As a user, I want my wardrobe and looks to be visible on a public profile so others can discover my style"
+    outcome: "30%+ of sessions include a profile visit (own or other)"
+    score:
+      impact: 4
+      confidence: 4
+      effort: 3
+      total: 6.7
+      reasoning: "enables affiliate commission from anonymous visitors; unlocks social discovery loop"
+    acceptance_criteria:
+      functional:
+        - "Public profile shows username, looks grid, and wardrobe items marked public"
+        - "Items are private by default; user can toggle public per item or in bulk"
+        - "Anonymous visitors can browse profile and tap affiliate product links"
+        - "No account required to view a profile"
+      quality:
+        - "Profile loads in < 2s"
+        - "Affiliate links accessible without login"
+    depends_on: ["US-003", "US-021"]
+    priority: "high"
+
+  - id: "US-031"
+    epic: "profiles"
+    title: "Like a product from another user's profile → adds to wishlist"
+    format: "As a logged-in user, I want to like a product I see on someone else's profile so it saves to my wishlist automatically"
+    outcome: "wishlist adds via social ≥ 20% of total wishlist adds"
+    score:
+      impact: 4
+      confidence: 4
+      effort: 2
+      total: 8.0
+      reasoning: "social discovery → wishlist → purchase funnel; also drives affiliate commission"
+    acceptance_criteria:
+      functional:
+        - "Like button on each product in a profile view"
+        - "Like requires login — prompt to create account if anonymous"
+        - "Liked product appears immediately in user's wishlist"
+        - "Wishlist accessible from profile and main nav"
+      quality:
+        - "Optimistic UI — like registers instantly, syncs in background"
+    depends_on: ["US-030", "US-011"]
+    priority: "high"
+
+  - id: "US-032"
+    epic: "scan"
+    title: "Scan inspiration photo (not owned) → adds to wishlist"
+    format: "As a user, I want to scan a photo of something I don't own so the matching products go to my wishlist, not my wardrobe"
+    outcome: "inspiration scans ≥ 30% of total scans"
+    score:
+      impact: 4
+      confidence: 4
+      effort: 2
+      total: 8.0
+      reasoning: "distinct intent from wardrobe scan; covers browsing/discovery use case"
+    acceptance_criteria:
+      functional:
+        - "Scan flow asks intent before saving: 'Add to wardrobe' vs 'Save to wishlist'"
+        - "Wishlist path: products from scan saved directly to wishlist"
+        - "Wardrobe path: item added to personal wardrobe (existing US-010 flow)"
+      quality:
+        - "Intent choice is one tap — no extra screens"
+    depends_on: ["US-010", "US-011"]
+    priority: "high"
+
+  # ─────────────────────────────────────────────────────────────
   # Epic 3: Look creation
   # ─────────────────────────────────────────────────────────────
   - id: "US-020"
@@ -253,7 +322,7 @@ icebox:
   - id: "US-103"
     title: "Follow other stylists, social feed"
     captured: "2026-04-16"
-    reason_deferred: "social is a separate product dimension; validate core use case first"
+    reason_deferred: "full social feed deferred; light public profiles (US-030/031) included in MVP instead"
 
   - id: "US-104"
     title: "Outfit recommendations from AI (from wardrobe)"

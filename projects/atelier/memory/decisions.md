@@ -4,6 +4,89 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ---
 
+## 2026-04-17 — User access model & MVP social scope
+
+**Who decided**: product owner (human)
+**Context**: validation session reviewing pending decisions. The question of affiliate link access (anonymous vs logged-in) led to a broader clarification of the full access model.
+**Decision**:
+- Anonymous users: can browse public profiles and tap affiliate links (generates commission)
+- Logged-in users: can scan, build wardrobe, create looks, like products → wishlist
+- Account creation is deferred to first save action (consistent with prior design decision)
+- Two scan intents: "I own this" → wardrobe / "I want this" → wishlist
+- Light social (public profiles + wishlist via likes) moved from V2 into MVP
+**Options considered**:
+- Account required for affiliate links (rejected — unnecessary friction, kills anonymous commission)
+- No social until V2 (rejected — public profiles are the mechanism that enables anonymous affiliate traffic)
+**Consequences**: US-030, US-031, US-032 added to backlog. Full social feed (following, comments) remains V2.
+**Revisit if**: App Store review flags public profiles; or legal review of anonymous affiliate tracking raises GDPR concerns.
+
+---
+
+## 2026-04-17 — Scan API: streaming (progressive reveal) from MVP
+
+**Who decided**: product owner (human)
+**Context**: choice between streaming (results arrive progressively) and batch (all results at once) for the scan API.
+**Decision**: streaming from MVP — the progressive reveal is the core "scan moment" differentiator and must ship day one.
+**Options considered**:
+- Batch with animation (rejected — 6s static screen reads as broken; undermines "ceremonial reveal")
+**Consequences**: backend must implement streaming endpoint (not batch); motion spec designed for streaming is validated.
+**Revisit if**: streaming proves technically infeasible within MVP timeline (fallback: batch + subtle pulse animation).
+
+---
+
+## 2026-04-17 — Scan daily limit: 10 scans/day at MVP
+
+**Who decided**: product owner (human)
+**Context**: need to protect inference costs during beta while covering real usage.
+**Decision**: 10 scans/day per user. At ~$0.02/scan, max cost = $0.20/user/day.
+**Options considered**:
+- Unlimited (rejected — cost risk before monetization model is set)
+- 3/day (rejected — too restrictive for real use)
+**Consequences**: rate limiting logic needed in backend; UI must communicate limit gracefully.
+**Revisit if**: beta data shows limit being hit by >10% of users → increase or introduce paid tier.
+
+---
+
+## 2026-04-17 — neutral.400 token: darken globally to #7a7570
+
+**Who decided**: product owner (human)
+**Context**: neutral.400 (#a09b90) fails WCAG AA for small text on light backgrounds. Two options: darken globally or fix per use-case.
+**Decision**: darken globally to #7a7570 across the design system.
+**Options considered**:
+- Per-use-case fix (rejected — creates inconsistency; harder to maintain)
+**Consequences**: token audit pass required; all instances of neutral.400 in specs updated before tech handoff.
+**Revisit if**: #7a7570 feels too dark in specific contexts (dark surfaces, large display text) — allow neutral.600 substitution case-by-case.
+
+---
+
+## 2026-04-17 — Amazon PA-API: skipped for MVP
+
+**Who decided**: product owner (human)
+**Context**: Google Shopping (via SerpAPI) covers multi-retailer results including brands, multi-brand sites, and 2nd-hand platforms (Vinted, Vestiaire, Depop). Amazon adds little value on fashion in Europe.
+**Decision**: skip Amazon PA-API. Google Shopping is sufficient for MVP.
+**Consequences**: no affiliate dependency on Amazon at launch. Revisit if catalogue gaps appear in post-launch data.
+**Revisit if**: US market launch where Amazon fashion is stronger.
+
+---
+
+## 2026-04-17 — GPU: wait, don't pre-provision
+
+**Who decided**: product owner (human)
+**Context**: SPIKE-001 primary pipeline (GroundingDINO + Claude Vision + SerpAPI) runs via API — no GPU needed. GPU only required if primary pipeline fails and fallback (SAM 2 + CLIP) is needed.
+**Decision**: provision GPU on-demand only if primary pipeline scores below 75%.
+**Consequences**: saves cost; adds ~1 day delay if fallback is needed (acceptable).
+
+---
+
+## 2026-04-17 — SPIKE-001 evaluators: product owner + Linh
+
+**Who decided**: product owner (human)
+**Context**: inter-rater reliability requires two independent human evaluators with fashion literacy.
+**Decision**: product owner + Linh serve as the two evaluators for the 100-photo test set.
+**Consequences**: both must evaluate independently before comparing scores.
+
+---
+
 ## 2026-04-16 — Onboarding: form of the first-offering surface (dark primary panel, not two-button fork)
 
 **Who decided**: product-design
