@@ -17,6 +17,14 @@ These are things we're assuming but haven't yet validated. They'll move out of t
 | Curation is the primary value, not social sharing | Measure WAS vs post/feed engagement once both exist | Low |
 | Inference cost per scan can stay below $0.02 | SPIKE-001: measure cost during spike | Low |
 
+## 2026-04-17 — Setup friction : Python + pip absent sur Mac par défaut
+
+**Context**: tentative de lancer le script de download SPIKE-001 depuis le Mac du Product Builder
+**Learning**: `pip` et `python` ne sont pas disponibles par défaut sur macOS récent. Le Product Builder n'avait ni Homebrew, ni Python installé — setup de 0 requis avant tout run local.
+**Evidence**: `pip command not found`, `brew command not found` rencontrés lors de la session
+**Implications**: documenter les prérequis système dans le README du spike ; envisager un script d'installation ou un Makefile `install` pour éviter ce blocage à chaque nouveau contributeur
+**Confidence**: high — reproductible sur tout Mac neuf
+
 ---
 
 <!-- Learning template — use this when adding real learnings:

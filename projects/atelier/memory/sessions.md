@@ -4,6 +4,51 @@ End-of-session summaries. Latest at top. Next session reads this to pick up clea
 
 ---
 
+## 2026-04-17 — Product Builder + product-tech — SPIKE-001 scaffold, dataset, session tooling
+
+**Task**: Scaffolding du harness SPIKE-001, préparation du dataset, et amélioration du workflow de session (documentation sweep, renommage rôle).
+
+**Worked on**:
+- Renommage "Product Owner" → "Product Builder" dans tous les fichiers actifs (context.md, decisions.md, team-agents.md, _template/context.md)
+- Skill `/session-end` : ajout d'un sweep complet de documentation (7 catégories : core, memory, design system, specs, diagrams, agent memory, workspace)
+- SPIKE-001 harness scaffoldé par product-tech : `pipeline/` (segment, extract, search, orchestrator), `evaluation/` (run_eval, metrics, grade_ui), `tests/` (32 tests, 100% coverage metrics)
+- Dataset : `download.py` (Unsplash + Pexels, ~55 photos), `MANUAL_SOURCING.md`, `dataset_ground_truth.yaml` (100 entrées P001–P100)
+- `.env` créé à la racine workspace (gitignored)
+- README spike-001 mis à jour : prérequis système macOS + instructions `.env`
+
+**Outcome**:
+- SPIKE-001 est exécutable dès que les clés API sont en place et le dataset collecté
+- Workflow session-end couvre désormais toute la documentation (pas seulement sessions.md)
+- Product Builder peut lancer `python -m dataset.download` après avoir obtenu ses clés Unsplash/Pexels
+- Setup Python/Homebrew documenté pour éviter la friction Mac rencontrée cette session
+
+**Decisions made**:
+- None (pas de décision produit cette session — travail d'infrastructure)
+
+**Open questions / next steps**:
+- Obtenir clés Unsplash + Pexels → lancer `download.py` → ~55 photos auto
+- Sourcer manuellement les 45 restantes (voir `MANUAL_SOURCING.md`)
+- Remplir `dataset_ground_truth.yaml` AVANT tout run de modèle
+- SPIKE-002 toujours sans owner — à assigner
+
+**Files changed**:
+- Modifié : `projects/atelier/context.md`
+- Modifié : `projects/atelier/memory/decisions.md`
+- Modifié : `projects/atelier/memory/learnings.md`
+- Modifié : `projects/atelier/docs/diagrams/team-agents.md`
+- Modifié : `projects/_template/context.md`
+- Modifié : `.claude/commands/session-end.md`
+- Modifié : `projects/atelier/spike-001/README.md`
+- Créés : `projects/atelier/spike-001/pipeline/` (4 fichiers)
+- Créés : `projects/atelier/spike-001/evaluation/` (4 fichiers)
+- Créés : `projects/atelier/spike-001/tests/test_metrics.py`
+- Créés : `projects/atelier/spike-001/dataset/download.py`
+- Créés : `projects/atelier/spike-001/dataset/MANUAL_SOURCING.md`
+- Modifié : `projects/atelier/spike-001/dataset/dataset_ground_truth.yaml` (100 entrées)
+- Modifié : `shared/agent-memory/product-tech.md`
+
+---
+
 ## 2026-04-17 — Product Builder + orchestrator — Onboarding, git workflow, role clarification
 
 **Task**: Session d'orientation : comprendre le workspace, clarifier le rôle du Product Builder, nettoyer le setup git.

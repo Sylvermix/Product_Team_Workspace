@@ -5,18 +5,44 @@ Validates whether GroundingDINO + Claude Vision + SerpAPI can achieve
 
 ## Prerequisites
 
-Three API keys must be set as environment variables before running anything:
+### System requirements
 
-```bash
-export ANTHROPIC_API_KEY="sk-ant-..."
-export SERPAPI_KEY="..."
-export ROBOFLOW_API_KEY="..."
+- **Python 3.11+** — check with `python3 --version`
+- If Python is not installed on macOS:
+  ```bash
+  # Install Homebrew first (https://brew.sh)
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # Then install Python
+  brew install python
+  ```
+
+### API keys
+
+Four API keys required. Create a `.env` file at the workspace root (never commit it — already in `.gitignore`):
+
 ```
+ANTHROPIC_API_KEY=sk-ant-...
+SERPAPI_KEY=...
+ROBOFLOW_API_KEY=...
+UNSPLASH_ACCESS_KEY=...   # only needed for dataset download
+PEXELS_API_KEY=...        # only needed for dataset download
+```
+
+Load them before running:
+```bash
+source ../../../.env
+```
+
+Free tiers sufficient for the spike:
+- Unsplash: unsplash.com/developers (50 req/hr)
+- Pexels: pexels.com/api (200 req/hr)
+- SerpAPI: serpapi.com (100 free searches/month)
+- Roboflow: roboflow.com (free inference tier)
 
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Python 3.11+ required.
