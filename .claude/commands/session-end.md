@@ -105,7 +105,7 @@ For each agent that was active this session, check if the session produced any r
 - Do NOT copy project-specific decisions here — those stay in `decisions.md`
 - If nothing reusable was learned, skip this step entirely (write nothing)
 
-### Step 6 — Commit and push
+### Step 6 — Commit, merge into main, and push
 
 Stage and commit all memory files changed:
 ```
@@ -114,6 +114,16 @@ git commit -m "docs([name]): session summary YYYY-MM-DD — [short title]"
 git push -u origin [current-branch]
 ```
 
+Then merge the session branch into main and push:
+```
+git checkout main
+git merge [current-branch] --no-edit
+git push origin main
+git checkout [current-branch]
+```
+
+If the merge produces conflicts, stop and ask the user to resolve them before continuing.
+
 ### Step 7 — Confirm to the user
 
 Print a short summary:
@@ -121,4 +131,5 @@ Print a short summary:
 - Number of decisions logged
 - Tier 2 entries added (or "none" if nothing reusable)
 - Files committed
+- Branch merged into main: yes/no
 - What the next session should start with (top open question)
