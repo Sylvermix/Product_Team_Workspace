@@ -231,8 +231,21 @@ rather than labor ("you need to add").
 pre-filtered to likely clothing photos (via on-device heuristics or asking the user
 to select). Up to 10 photos selected. AI auto-tags in background.
 
+After AI auto-tagging completes for each imported photo, a size picker sheet appears —
+the same form as State 8e in the scan-moment spec ("What size is this?" heading in PP
+Editorial New, xl; horizontal scrollable pill row; "Enter size manually" fallback).
+Size capture is mandatory before an imported item is saved to the wardrobe. The user
+works through each imported item in sequence. Per item, they may also tap "Skip for
+now — add size later from wardrobe" (a text link below the CTA); items skipped this
+way are saved to the wardrobe but flagged with a "size missing" indicator visible in
+the wardrobe grid, prompting completion later. Pre-selection logic applies: if the
+user has already sized a garment from the same brand + category earlier in this same
+import session, that size is pre-selected for subsequent matching items.
+
 After import (or skip):
-- If 1+ items imported → arrives at wardrobe grid with items (a small first reward)
+- If 1+ items imported → arrives at wardrobe grid with items (a small first reward).
+  Items with "size missing" flag show a quiet indicator (a small, terracotta underline
+  dot on the card corner — consistent with the scan-moment visual language).
 - From wardrobe: the scan button is visible with the State 12 contextual prompt:
   "Scan anything." — "A photo, a screenshot, an inspiration image." This is the
   natural next step from wardrobe. The path reaches scan, just via a longer route.
@@ -255,20 +268,26 @@ non-clothing photos, it breaks the magic.
 
 This is the moment the journey has been navigating toward.
 
-**What the user does**: reads the result. Possibly taps a product card. Possibly saves
-to wishlist — which is the first action that requires an account.
+**What the user does**: reads the result. Possibly taps a product card. Possibly
+interacts with the save actions — which are the first actions that require an account.
 
 **What they feel**: recognition. If the match is good: a quiet delight — "it knows
 what it's looking at." If the match is approximate: curiosity — "close enough, let
 me look." The design does not over-celebrate. The result is the event.
 
-**What the system does**: if the user taps a product card or "Save to wishlist" — this
-is the gate for account creation (see Beat 5). The scan result itself is visible without
-an account. Saving or tapping through requires one.
+**What the system does**: when the user taps a product card or either save action, the
+two-intent split appears (account gate at Beat 5 triggers first if no account):
+- "Add to wardrobe" — signals this item belongs to the user. Triggers the size picker
+  sheet (State 8e in scan-moment spec) before the item is saved. Requires account.
+- "Save to wishlist" — signals the user wants this item. No size required. Item saved
+  directly. Requires account.
+The scan result itself remains visible without an account. Saving or tapping through
+to a retailer requires one.
 
 **Decision branch**:
 - Taps product card (deep-links to retailer) → account gate (Beat 5)
-- Saves to wishlist → account gate (Beat 5)
+- Taps "Add to wardrobe" → account gate (Beat 5) → size picker (State 8e) → saved
+- Taps "Save to wishlist" → account gate (Beat 5) → saved directly
 - Exits scan, goes to wardrobe → Beat 6 (home state)
 - Does another scan → repeat Beat 3a
 
@@ -304,8 +323,11 @@ to the new account on creation.
   next save action or next launch.
 
 **Dropout risk**: moderate. Some users will decline account creation permanently.
-This is acceptable — the app should still be usable in a limited session mode. Product-
-lead to decide if guest mode is a permanent feature or a soft onboarding onramp.
+This is acceptable and by design — guest mode is permanent, not an onboarding-only
+onramp. Anonymous users can browse profiles and tap affiliate links indefinitely without
+ever creating an account. Account creation is only required when the user wants to scan,
+save (to wardrobe or wishlist), or like. The "Maybe later" path is not a temporary
+workaround; it is a valid, permanent mode of use.
 
 ---
 
@@ -328,6 +350,13 @@ After wardrobe import path (1-10 items):
 
 In both cases: the app is not "finished" but it is open. The user has a clear next
 action at all times. The product is speaking.
+
+In both post-onboarding states, the AI agent prompt bar is accessible from the home
+screen — a quiet input surface that invites the user to ask for style advice or product
+search in natural language. It does not interrupt; it waits. The bar sits below the
+primary home content, persistent but undemanding. It is the first introduction to the
+AI agent capability, which becomes a more prominent surface over time as the user's
+wardrobe and scan history give the model more context to work with.
 
 ---
 
@@ -435,8 +464,15 @@ LAUNCH
               (FIRST VALUE)                           ↓
                     │                          Eventually: scan
                     ▼
-           Tap product / Save
+       Tap product / Save action
                     ↓
+         ┌──────────┴──────────┐
+  "Add to wardrobe"     "Save to wishlist"
+   (size picker,         (no size required,
+    account required)     account required)
+         │                     │
+         └──────────┬──────────┘
+                    ▼
              [Beat 5] Account gate
              (bottom sheet, soft)
                     │

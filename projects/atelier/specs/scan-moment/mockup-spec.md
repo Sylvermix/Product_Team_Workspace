@@ -65,7 +65,7 @@ the sheet is a surface that arrives, not a lock-screen.
   - Right of glyph (12px gap): "Take photo" in PP Neue Montreal, `font-size: base (16px)`,
     `color.brand.primary`
   - Sub-label beneath "Take photo": "Use your camera now" in `font-size: sm (14px)`,
-    `color.neutral.400 (#a09b90)`
+    `color.neutral.400 (#7a7570)`
   - Tap: opens camera view (State 3).
 
   **Option B — Photo library**
@@ -166,7 +166,7 @@ The confirm screen serves two purposes that exceed friction-reduction math:
   **Secondary action — "Choose another"**
   - Below primary button, 12px gap.
   - Text only, no button background. "Choose another photo" — PP Neue Montreal,
-    `font-size: sm (14px)`, `color.neutral.400 (#a09b90)`.
+    `font-size: sm (14px)`, `color.neutral.400 (#7a7570)`.
   - Returns user to State 2 chooser.
 
 - Top-left: back arrow (24×24px, white) to dismiss entirely.
@@ -228,7 +228,7 @@ copy. The ceremony does not narrate itself.
 **If the scan takes longer than 4 seconds with no markers appearing**: after 4s, a
 single line of text fades in at the very bottom of the screen (above bottom safe area),
 centered: "Still analyzing…" — PP Neue Montreal, `font-size: sm (14px)`,
-`color.neutral.400 (#a09b90)` at 80% opacity. It fades out when the first marker
+`color.neutral.400 (#7a7570)` at 80% opacity. It fades out when the first marker
 appears. This is the only progress signal. It is an acknowledgment, not an apology.
 
 **Accessibility during scan**:
@@ -292,7 +292,7 @@ appears. This is the only progress signal. It is an acknowledgment, not an apolo
   - Left: product image, 64×64px, `border-radius: sm (2px)`, object-fit: cover.
   - Right of image (12px gap): two rows of text.
     - Row 1: retailer name in PP Neue Montreal, `font-size: xs (12px)`,
-      `letter-spacing: editorial (0.12em)`, `color.neutral.400 (#a09b90)`, uppercase.
+      `letter-spacing: editorial (0.12em)`, `color.neutral.400 (#7a7570)`, uppercase.
     - Row 2: product description (max 2 lines) in PP Neue Montreal, `font-size: sm
       (14px)`, `color.brand.primary`.
     - Row 3: price on left, review score on right — both in PP Neue Montreal,
@@ -310,7 +310,7 @@ appears. This is the only progress signal. It is an acknowledgment, not an apolo
 **Affiliate disclosure**: a single line of text pinned above the bottom safe area,
 persistent while the results panel is open. Fixed, does not scroll with cards.
 Content: "Some links are affiliate links. Tapping may earn Atelier a commission." —
-PP Neue Montreal, `font-size: xs (12px)`, `color.neutral.400 (#a09b90)`, centered.
+PP Neue Montreal, `font-size: xs (12px)`, `color.neutral.400 (#7a7570)`, centered.
 `background: color.surface.card (#fbfaf7)`, 8px top padding.
 See State 13 for full affiliate surface spec.
 
@@ -362,8 +362,12 @@ viewport. The photo plane + garment selector remain visible above the sheet.
   (State 5): `background: color.brand.primary`, `color: #f6f3ed`, 56px tall, no border
   radius, PP Neue Montreal, `font-size: base`, `letter-spacing: editorial`. Deep links
   to retailer. 16px horizontal margin (so it does not bleed to edges).
-- Save to wishlist: below CTA, 12px gap. Text-only: "Save to wishlist" in `font-size:
-  sm`, `color.neutral.600`. See State 8d for wishlist save.
+- Save actions: below CTA, 12px gap. Two stacked text-only links, 8px gap between them:
+  - Primary text link: "Add to wardrobe" — PP Neue Montreal, `font-size: sm`,
+    `color.brand.primary`. Triggers size picker sheet (see State 8e). Account gate
+    applies: if no account, triggers account creation bottom sheet first.
+  - Secondary text link: "Save to wishlist" — PP Neue Montreal, `font-size: sm`,
+    `color.neutral.600`. See State 8d for wishlist save behavior.
 
 ### 8c: Sort / filter interaction
 
@@ -385,6 +389,76 @@ Active option has a 2px left border in terracotta `#c85a3c`. PP Neue Montreal,
   `color.neutral.600`.
 - Apply button at bottom (same form as primary button). "Show [N] results" — count
   updates live as filters change.
+
+### 8e: "Add to wardrobe" — size picker flow
+
+**Trigger**: user taps "Add to wardrobe" from the expanded product sheet (State 8b).
+Account gate applies first: if no account exists, the account creation bottom sheet
+appears before this sheet (see Beat 5 in the journey map). Once authenticated, the
+size picker sheet rises.
+
+**Presentation**: a bottom sheet rises over the expanded product sheet. Sheet height:
+auto (content-driven), minimum 280px. `border-radius: lg (8px)` on top corners only.
+Background: `color.surface.card (#fbfaf7)`.
+
+**Sheet contents** (top to bottom):
+- Drag handle (4px × 36px, `color.neutral.200 (#e8e3d7)`, centered, 12px top margin).
+- Sheet heading (16px top margin): "What size is this?" — PP Editorial New,
+  `font-size: xl (22px)`, `font-weight: 400`, `letter-spacing: tight (-0.02em)`,
+  `color.brand.primary`.
+- Brand detected (8px below heading, if brand is available from scan): brand name in
+  PP Neue Montreal, `font-size: sm (14px)`, `color.neutral.600 (#5a5651)`. Example:
+  "Detected brand: Acne Studios". If no brand data, this line is omitted.
+- Size options (20px top margin): a horizontally scrollable row of pill options.
+  Pill form: `border-radius: full (9999px)`, 36px tall, horizontal padding 16px.
+  - Unselected pill: `background: transparent`, `border: 1px solid color.neutral.300`,
+    label in PP Neue Montreal, `font-size: sm`, `color.brand.primary`.
+  - Selected pill: `background: color.brand.primary (#1a1a1c)`, label in
+    `color.brand.secondary (#f6f3ed)`, no border.
+  - Size options vary by detected garment category:
+    - Tops / outerwear: XS, S, M, L, XL, XXL
+    - Bottoms: 28, 30, 32, 34, 36, 38 (waist), or 34, 36, 38, 40 (EU sizing)
+    - Shoes: 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 (EU) or 6, 7, 8, 9, 10, 11 (US)
+  - Pre-selected state: if the user has previously worn (added to wardrobe) a garment
+    from this brand + category combination, the matching size pill is pre-selected on
+    sheet open. Pre-selection is a convenience affordance — not locked; user can change.
+  - If no matching history: no pre-selection; first tap selects.
+- "Enter size manually" (12px below pill row): text link — PP Neue Montreal,
+  `font-size: sm (14px)`, `color.neutral.600`. Tap opens a single-field text input
+  (replaces the pill row with a text field, `placeholder: "e.g. 38, XL, 9.5"`). An
+  "← Sizes" text link returns to the pill row. Manual entry is for non-standard or
+  international sizes not covered by the pill set.
+- Primary CTA (24px below pills or text field): "Add to wardrobe" — full-width, 56px
+  tall, no border radius (sharp, editorial). `background: color.brand.primary (#1a1a1c)`,
+  `color: #f6f3ed`, PP Neue Montreal, `font-size: base (16px)`,
+  `letter-spacing: editorial (0.12em)`. Identical form to the Scan confirm button
+  (State 5). The button is disabled (50% opacity, not tappable) if no size is selected
+  or entered.
+- 24px bottom safe area padding.
+
+**On confirm (CTA tap)**:
+- Item saved to wardrobe with the selected size recorded against brand + category.
+- Visual acknowledgment: "Add to wardrobe" CTA text transitions to "Saved to wardrobe."
+  with a thin underline (1px, 20px wide, terracotta `#c85a3c`) — the same visual
+  language as the wishlist save confirmation (State 8d). Holds for 800ms.
+- Sheet closes automatically after 800ms.
+- The product card in the results list gains a faint terracotta left-border (2px,
+  `#c85a3c` at 40% opacity) — same as wishlist saved state, signaling persistence.
+
+**Haptic**: one soft impact haptic on save confirmation (matching State 8d).
+
+**Accessibility**:
+- Sheet announced via `aria-live="polite"`: "Size picker. Select the size for this
+  garment before adding to wardrobe."
+- Pill row: `role="radiogroup"`, each pill is `role="radio"` with `aria-checked`.
+- Pre-selected pill: `aria-checked="true"` on open.
+- CTA disabled state: `aria-disabled="true"`, screen reader announces "Add to wardrobe,
+  select a size first."
+- Touch targets: pills are 36px tall — below 44px minimum. Invisible vertical padding
+  of 4px top + 4px bottom applied to each pill wrapper to reach 44px. Visual size
+  unchanged.
+
+---
 
 ### 8d: Saving a product to wishlist — the gesture
 
@@ -449,7 +523,7 @@ addition:
 
 - Below the display serif garment label, before the match count, a single line:
   "Approximate match — results may vary." — PP Neue Montreal, `font-size: xs (12px)`,
-  `color.neutral.400 (#a09b90)`, `letter-spacing: editorial (0.12em)`. Left-aligned.
+  `color.neutral.400 (#7a7570)`, `letter-spacing: editorial (0.12em)`. Left-aligned.
   No icon. No warning color (warning yellow would feel alarming; this is a
   calibration note, not an error).
 
@@ -483,10 +557,10 @@ Secondary: "The scan failed. Please try again." (PP Neue Montreal, `sm`, `e8e3d7
 Options: "Try again" (retries the scan with the same photo), "Dismiss".
 
 ### 11c: Rate-limited
-**When**: user has exceeded scan quota (if implemented — TBD with product-lead).
-Same layout as 11b. Text: "You've scanned a lot today." / "Come back tomorrow for more
-scans, or upgrade for unlimited." — second sentence deferred to v2 monetization.
-MVP text: "You've scanned a lot today. Try again tomorrow."
+**When**: user has exceeded 10 scans in the current day (rate limit confirmed: 10 scans/day).
+Same layout as 11b. Primary text: "You've scanned 10 times today." (PP Editorial New,
+`2xl`, `#f6f3ed`). Secondary text: "Come back tomorrow for more." (PP Neue Montreal,
+`sm`, `#e8e3d7`). No upsell copy in MVP — monetization path deferred to v2.
 
 ### 11d: Photo rejected (corrupt, not a garment photo)
 **When**: AI returns a "no garment detected" confidence because the image is not a
@@ -540,7 +614,7 @@ every card.
 - Background: `color.surface.card (#fbfaf7)` with a 1px top border in
   `color.neutral.200 (#e8e3d7)`.
 - Text: "Some links earn Atelier a commission." — PP Neue Montreal, `font-size: xs
-  (12px)`, `color.neutral.400 (#a09b90)`, centered.
+  (12px)`, `color.neutral.400 (#7a7570)`, centered.
 - Tapping the disclosure text opens an inline info sheet (swipes up 120px) with
   expanded text: "When you tap a product and make a purchase, Atelier may earn a small
   commission at no extra cost to you. This doesn't influence which products we show."
