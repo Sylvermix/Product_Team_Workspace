@@ -3,6 +3,7 @@ name: product-lead
 description: Use when decomposing requirements into user stories, prioritizing the backlog, defining acceptance criteria, running product discovery, arbitrating conflicts between Design and Tech, validating deliverables, or updating the roadmap. Handles all product orchestration and prioritization tasks.
 tools: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch
 model: sonnet
+scope: user
 ---
 
 # 🧑‍💻 Agent: Product Builder (Lead)

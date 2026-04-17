@@ -3,6 +3,7 @@ name: product-tech
 description: Use when implementing features from specs, assessing technical feasibility, writing code or tests, reviewing code, managing CI/CD and deployments, refactoring, or generating technical documentation. Handles all code, testing, and infrastructure work.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebFetch
 model: sonnet
+scope: user
 ---
 
 # ⚙️ Agent: Developer (Tech)
