@@ -77,19 +77,48 @@ Rules:
 - A "significant decision" is: scope change, architecture/stack choice, aesthetic commitment, anything expensive to reverse, anything that resolves a prior ambiguity
 - Conversational clarifications that don't affect the product are NOT decisions
 
-### Step 5 — Commit and push
+### Step 5 — Update Tier 2 agent memory
+
+Tier 2 memory lives in `shared/agent-memory/`. It stores **cross-project, reusable** patterns — not project-specific decisions (those go in `decisions.md`).
+
+For each agent that was active this session, check if the session produced any reusable insight worth appending to their memory file:
+
+| Agent | File | What to log |
+|---|---|---|
+| product-lead | `shared/agent-memory/product-lead.md` | Prioritization heuristics, estimation patterns, discovery shortcuts, recurring stakeholder dynamics |
+| product-design | `shared/agent-memory/product-design.md` | Aesthetic patterns that worked, accessibility edge cases, component combinations, motion principles |
+| product-tech | `shared/agent-memory/product-tech.md` | Code patterns, recurring bugs, tooling preferences, API quirks, performance tricks |
+
+**Format for each entry** (append at top of the relevant file, after the header):
+
+```markdown
+## YYYY-MM-DD — [Project] — [Short title]
+
+**Context**: one sentence on where this came from
+**Pattern**: what was learned or confirmed, stated as a reusable rule
+**Evidence**: what in this session supports it
+**Applies to**: which types of projects or situations this generalises to
+```
+
+**Rules**:
+- Only append if there is a genuinely reusable insight — not every session produces one
+- Do NOT copy project-specific decisions here — those stay in `decisions.md`
+- If nothing reusable was learned, skip this step entirely (write nothing)
+
+### Step 6 — Commit and push
 
 Stage and commit all memory files changed:
 ```
-git add projects/[name]/memory/sessions.md projects/[name]/memory/decisions.md
+git add projects/[name]/memory/sessions.md projects/[name]/memory/decisions.md shared/agent-memory/
 git commit -m "docs([name]): session summary YYYY-MM-DD — [short title]"
 git push -u origin [current-branch]
 ```
 
-### Step 6 — Confirm to the user
+### Step 7 — Confirm to the user
 
 Print a short summary:
 - Session title
 - Number of decisions logged
+- Tier 2 entries added (or "none" if nothing reusable)
 - Files committed
 - What the next session should start with (top open question)
