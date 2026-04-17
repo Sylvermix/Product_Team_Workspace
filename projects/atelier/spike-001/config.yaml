@@ -1,0 +1,52 @@
+pipeline:
+  segmentation:
+    provider: "roboflow"  # or "huggingface"
+    model: "groundingdino"
+    confidence_threshold: 0.35
+    garment_categories:
+      - "shirt"
+      - "blouse"
+      - "jacket"
+      - "coat"
+      - "blazer"
+      - "sweater"
+      - "hoodie"
+      - "trousers"
+      - "jeans"
+      - "skirt"
+      - "shorts"
+      - "dress"
+      - "jumpsuit"
+      - "suit"
+      - "shoes"
+      - "boots"
+      - "sneakers"
+      - "heels"
+      - "sandals"
+      - "bag"
+      - "hat"
+      - "scarf"
+      - "sunglasses"
+      - "belt"
+
+  attribute_extraction:
+    provider: "claude"
+    model: "claude-sonnet-4-6"
+    max_tokens: 500
+
+  product_search:
+    provider: "serpapi"
+    results_per_garment: 5
+    country: "us"
+
+evaluation:
+  top_k: 3
+  min_useful_match_rate: 0.75
+  partial_threshold: 0.60
+
+costs:
+  # Claude Sonnet 4.6 pricing (USD per 1M tokens)
+  claude_input_cost_per_million_tokens: 3.00
+  claude_output_cost_per_million_tokens: 15.00
+  # SerpAPI pricing — $0.01 per search at standard tier
+  serpapi_cost_per_query: 0.01
