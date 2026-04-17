@@ -1,0 +1,9 @@
+version: "1.0"
+total_photos: 0
+photos: []
+# Each entry follows this schema:
+#   photo_id: "P001"        # unique identifier matching ground_truth.yaml
+#   filename: "P001.jpg"    # filename relative to dataset/photos/
+#   source: "unsplash"      # where the image came from
+#   license: "unsplash"     # license type (unsplash, pexels, cc0, proprietary)
+#   ready_for_eval: false   # set to true once the file is in dataset/photos/
