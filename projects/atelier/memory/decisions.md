@@ -4,6 +4,34 @@ Append-only log of significant decisions. Latest at top. Every entry includes co
 
 ---
 
+## 2026-04-17 — Git workflow : 1 branche par session, merge dans main au session-end
+
+**Who decided**: Product Builder (human)
+**Context**: accumulation de branches `claude/...` orphelines après chaque session Claude Code.
+**Options considered**:
+- Travailler directement sur main (rejeté — les branches par session sont créées automatiquement par le harness)
+- Merger manuellement après chaque session (rejeté — friction inutile)
+- Auto-merge dans main via `/session-end` (choisi)
+**Decision**: le skill `/session-end` merge automatiquement la branche de session dans main avant de clore.
+**Consequences**: main est toujours à jour après chaque session ; pas de branches orphelines à gérer manuellement.
+**Revisit if**: un merge produit des conflits fréquents → envisager une review humaine avant merge.
+
+---
+
+## 2026-04-17 — Rôle humain renommé "Product Builder"
+
+**Who decided**: Product Builder (human)
+**Context**: le titre "product owner" ne reflétait pas la réalité du rôle, qui couvre aussi la vision UX et design.
+**Options considered**:
+- Creative Director (rejeté — sous-représente l'autorité PM/backlog)
+- Director of Product & Design (rejeté — trop corporate)
+- Product Builder (choisi — couvre faire + produit, startup-friendly, sans jargon)
+**Decision**: le rôle humain s'appelle désormais "Product Builder" dans tous les fichiers du workspace.
+**Consequences**: `context.md` mis à jour. Les entrées précédentes dans `decisions.md` référencent encore "product owner (human)" — à lire comme "Product Builder".
+**Revisit if**: jamais (cosmétique).
+
+---
+
 ## 2026-04-17 — User access model & MVP social scope
 
 **Who decided**: product owner (human)

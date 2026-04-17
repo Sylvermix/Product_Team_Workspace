@@ -4,6 +4,41 @@ End-of-session summaries. Latest at top. Next session reads this to pick up clea
 
 ---
 
+## 2026-04-17 — Product Builder + orchestrator — Onboarding, git workflow, role clarification
+
+**Task**: Session d'orientation : comprendre le workspace, clarifier le rôle du Product Builder, nettoyer le setup git.
+
+**Worked on**:
+- `/session-start atelier` — brief de session chargé, contexte complet
+- Explication du concept de spike (à la demande)
+- Explication du rôle "product owner" dans l'équipe
+- Renommage du rôle : "Product owner" → "Product Builder" dans `context.md`
+- Merge de `claude/summary-pending-validation-D5ls4` → `main` (14 commits, fast-forward)
+- Suppression de la branche locale obsolète
+- Mise à jour du skill `/session-end` : auto-merge dans main à chaque fin de session
+
+**Outcome**:
+- `context.md` mis à jour : rôle renommé "Product Builder" (scope : scope + priorités + UX + vision design + business)
+- `main` à jour avec tout le travail des sessions précédentes (14 commits mergés)
+- Workflow git clarifié et automatisé : 1 branche/session → merge dans main au `/session-end`
+- Plus de branche orpheline `claude/summary-pending-validation-D5ls4`
+
+**Decisions made**:
+- Rôle renommé "Product Builder" (voir decisions.md 2026-04-17)
+- Workflow git : 1 branche par session, merge automatique dans main au `/session-end` (voir decisions.md 2026-04-17)
+
+**Open questions / next steps**:
+- SPIKE-001 : démarrer l'évaluation (product owner + Linh, 100 photos, avant le 1er mai)
+- SPIKE-002 : assigner un owner et démarrer la review légale/API
+- `decisions.md` contient encore des références à "product owner" (humain) — à mettre à jour si nécessaire
+
+**Files changed**:
+- Modifié : `projects/atelier/context.md` (renommage rôle)
+- Modifié : `.claude/commands/session-end.md` (auto-merge dans main)
+- Modifié : `projects/atelier/memory/sessions.md` (cette entrée)
+
+---
+
 ## 2026-04-17 — human owner + orchestrator — Workspace tooling, GitHub board, visual documentation
 
 **Task**: Après la session de validation du matin, construire l'infrastructure de travail : board GitHub, diagrammes Mermaid, skills de session, mise à jour des agents.
