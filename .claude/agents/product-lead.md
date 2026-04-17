@@ -305,6 +305,21 @@ changelog:
 | `on_story_shipped` | All acceptance criteria pass | `update_roadmap` + changelog entry | Roadmap update → all agents |
 | `on_weekly_review` | Weekly cadence | `prioritize_backlog` + `update_roadmap` | Updated plan → all agents |
 | `on_blocker_detected` | Any agent reports blocker | Evaluate impact → reprioritize or unblock | Decision + updated backlog |
+| **`on_backlog_updated`** | **Any change to `backlog.yaml`** | **`sync_github_issues`** | **GitHub issues created/updated to match backlog** |
+
+### `sync_github_issues` — protocol
+
+**Trigger**: every time `backlog.yaml` is modified (story added, updated, status changed, or moved to icebox/done).
+
+**Rules**:
+- **New story added** → create a GitHub issue on `sylvermix/product_team_workspace` with title `[ID] Title`, body containing user story, outcome, acceptance criteria, depends_on, and priority. Apply labels: `epic: <epic>`, `priority: <critical|high>`, `status: <ready|blocked|discovery|icebox>`.
+- **Story updated** (acceptance criteria, outcome, priority changed) → update the corresponding GitHub issue body and labels to match.
+- **Story status changed** (e.g. ready → in_progress, blocked → ready) → update the `status:` label on the GitHub issue.
+- **Story moved to done** → close the GitHub issue with `state_reason: completed`.
+- **Story moved to icebox** → update label to `status: icebox`. Do not close.
+- **Story deleted or merged** → close the GitHub issue with `state_reason: not_planned` and a comment explaining why.
+
+**Never** let `backlog.yaml` and GitHub issues diverge. The backlog is the source of truth; GitHub is the mirror for human interaction.
 
 ---
 
